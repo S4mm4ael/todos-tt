@@ -1,7 +1,7 @@
 export enum ROUTES {
-  LOGIN = "LoginScreen",
-  REGISTER = "RegisterScreen",
+  REGISTER = "RegistrationScreen",
   SIGN_UP = "SignUp",
+  LOGIN = "LoginScreen",
   HOME = "HomeScreen",
   ACCOUNT = "AccountScreen",
 }

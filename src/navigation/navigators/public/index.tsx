@@ -1,7 +1,7 @@
 import React from "react";
 import {createStackNavigator} from "@react-navigation/stack";
-// import {Login} from "../../../../screens/Login";
-// import {Register} from "../../../../screens/Register";
+import Login from "../../../screens/Login";
+import Registration from "../../../screens/Registration";
 import {ROUTES} from "../../../constants/routes";
 import {headerOptions} from "./config";
 
@@ -14,7 +14,7 @@ const PublicRoutes = () => {
       screenOptions={headerOptions}
     >
       <Stack.Screen name={ROUTES.LOGIN} component={Login} />
-      <Stack.Screen name={ROUTES.REGISTER} component={Register} />
+      <Stack.Screen name={ROUTES.REGISTER} component={Registration} />
     </Stack.Navigator>
   );
 };
