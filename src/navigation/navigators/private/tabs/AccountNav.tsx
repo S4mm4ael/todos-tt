@@ -3,7 +3,7 @@ import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import {ROUTES} from "../../../../constants/routes";
 import {tabBarHeaderOptions} from "../config";
 import {AccountStackNavigatorParamList} from "../../../schemas";
-import Account from "../../../../screens/ACCOUNT";
+import Account from "../../../../screens/Account";
 
 const AccountStack =
   createNativeStackNavigator<AccountStackNavigatorParamList>();
