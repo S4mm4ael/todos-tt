@@ -6,3 +6,5 @@ export {OpenedEyeIcon} from "./OpenedEyeIcon";
 export {ExclamationPointIcon} from "./ExclamationPointIcon";
 export {AppMainLogo} from "./AppMainLogo";
 export {CloseIcon} from "./CloseIcon";
+export {PencilIcon} from "./PencilIcon";
+export {PlusIcon} from "./PlusIcon";
