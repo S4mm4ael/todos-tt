@@ -16,7 +16,7 @@ const linking = {
 };
 
 export const RootNavigator = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const navigationRef = useNavigationContainerRef();
   const routeNameRef = useRef<string>();
 
