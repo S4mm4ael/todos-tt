@@ -7,7 +7,7 @@ import {SafeAreaProvider} from "react-native-safe-area-context";
 import {Provider} from "mobx-react";
 import authStore from "./stores/AuthStore";
 import {COLORS} from "./constants/colors";
-import LoadingOverlay from "./components/UI/LoadingOverlay";
+import LoadingOverlay from "./components/LoadingOverlay";
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === "dark";

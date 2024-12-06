@@ -1,7 +1,7 @@
 import React from "react";
 import {View, Text} from "react-native";
 import {styles} from "./styles";
-import {ExclamationPointIcon} from "../../../assets/svg";
+import {ExclamationPointIcon} from "../../assets/svg";
 
 interface Props {
   errorMessage?: string;

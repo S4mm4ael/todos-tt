@@ -7,7 +7,7 @@ interface Props extends SvgProps {
   size?: number;
 }
 
-export const ExclamationPoint = ({
+export const ExclamationPointIcon = ({
   color = COLORS.DANGER,
   size = 14,
   ...rest
