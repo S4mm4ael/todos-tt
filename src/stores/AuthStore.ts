@@ -1,5 +1,6 @@
+// src/stores/AuthStore.ts
 import {makeAutoObservable} from "mobx";
-import axios from "axios";
+import {axios} from "../services/axiosConfig";
 import {API} from "./constants";
 
 class AuthStore {
@@ -15,10 +16,7 @@ class AuthStore {
     this.loading = true;
     this.error = null;
     try {
-      const response = await axios.post(API.REGISTER, {
-        username,
-        password,
-      });
+      const response = await axios.post(API.REGISTER, {username, password});
       this.user = response.data;
     } catch (error) {
       this.error = error.response?.data?.message || "Registration failed";
@@ -31,10 +29,7 @@ class AuthStore {
     this.loading = true;
     this.error = null;
     try {
-      const response = await axios.post(API.LOGIN, {
-        username,
-        password,
-      });
+      const response = await axios.post(API.LOGIN, {username, password});
       this.user = response.data;
     } catch (error) {
       this.error = error.response?.data?.message || "Login failed";

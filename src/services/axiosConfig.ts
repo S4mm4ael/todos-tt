@@ -2,7 +2,7 @@ import Config from "react-native-config";
 import {MMKV} from "react-native-mmkv";
 import Axios from "axios";
 import {MMKV_KEYS} from "../constants/storageKeys";
-//import {useUserStore} from "../../store/useUserStore";
+import authStore from "../stores/AuthStore";
 
 export const MMKVstorage = new MMKV();
 export const BASE_URL = Config.API_BASE_URL;
@@ -84,7 +84,7 @@ axios.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
     if (error.response.status === 401 && !originalRequest._retry) {
-      useUserStore.getState().clearUser();
+      authStore.logout();
       MMKVstorage.set(MMKV_KEYS.ACCESS_TOKEN, "");
       originalRequest._retry = true;
       try {

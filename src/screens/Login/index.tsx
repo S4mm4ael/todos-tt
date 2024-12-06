@@ -1,7 +1,8 @@
 import React, {useState} from "react";
 import {View, Text, TextInput, Button, StyleSheet} from "react-native";
+import {observer} from "mobx-react-lite";
 
-const Login: React.FC = () => {
+const Login: React.FC = observer(() => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -31,7 +32,7 @@ const Login: React.FC = () => {
       <Button title="Login" onPress={handleLogin} />
     </View>
   );
-};
+});
 
 const styles = StyleSheet.create({
   container: {
