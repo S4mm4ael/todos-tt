@@ -13,7 +13,7 @@ export interface BoxProps extends ViewProps {
   type?: BOX_TYPE;
 }
 
-export const Box = React.forwardRef(
+export const BoxedContainer = React.forwardRef(
   ({type = BOX_TYPE.USUAL, ...props}: BoxProps, ref: ForwardedRef<View>) => (
     <View
       ref={ref}

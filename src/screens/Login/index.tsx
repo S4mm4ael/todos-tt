@@ -1,17 +1,17 @@
 import React, {useState} from "react";
-import {View, Text, Pressable, Button, StyleSheet} from "react-native";
+import {View, Text, Pressable, Button} from "react-native";
 import {observer} from "mobx-react-lite";
+import {useForm} from "react-hook-form";
 import authStore from "../../stores/AuthStore";
-import {COLORS} from "../../constants/colors";
 import {ROUTES} from "../../constants/routes";
 import {useNavigation} from "@react-navigation/native";
 import {SafeAreaView} from "react-native-safe-area-context";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
-import {useForm} from "react-hook-form";
 import {ControlledInput} from "../../components/Inputs/ControlledInput";
 import {ValidationWarning} from "../../components/ValidationWarning";
-import {Box} from "../../components/Containers/BoxedContainer";
+import {BoxedContainer} from "../../components/Containers/BoxedContainer";
 import {AppMainLogo} from "../../assets/svg";
+import {styles} from "./styles";
 
 interface FormData {
   email: string;
@@ -44,7 +44,7 @@ const Login: React.FC = observer(() => {
           <View style={styles.logoContainer}>
             <AppMainLogo />
           </View>
-          <Box>
+          <BoxedContainer>
             <ControlledInput
               autoCapitalize="none"
               control={control}
@@ -66,8 +66,7 @@ const Login: React.FC = observer(() => {
             />
             <Button title="Login" onPress={handleSubmit(onSubmit)} />
             <ValidationWarning errorMessage={error} />
-          </Box>
-
+          </BoxedContainer>
           <View style={styles.signUpBlock}>
             <Text style={styles.text1}>Don't have an account?</Text>
             <Pressable onPress={goToRegistrationScreen}>
@@ -78,41 +77,6 @@ const Login: React.FC = observer(() => {
       </KeyboardAwareScrollView>
     </SafeAreaView>
   );
-});
-
-const styles = StyleSheet.create({
-  logoContainer: {
-    justifyContent: "center",
-    alignItems: "center",
-    gap: 8,
-    marginBottom: 80,
-  },
-  logoTitle: {
-    fontSize: 27,
-    lineHeight: 38,
-    color: COLORS.BLACK,
-  },
-  container: {
-    paddingTop: 80,
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  input: {
-    marginBottom: 24,
-  },
-  signUpBlock: {
-    flexDirection: "row",
-    gap: 10,
-  },
-  signUpBtn: {
-    fontSize: 16,
-    color: COLORS.PRIMARY,
-  },
-  text1: {
-    fontSize: 14,
-    color: COLORS.BLACK,
-  },
 });
 
 export default Login;

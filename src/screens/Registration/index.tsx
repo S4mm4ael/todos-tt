@@ -1,62 +1,102 @@
-import React, {useState} from "react";
-import {View, Text, TextInput, Button, StyleSheet} from "react-native";
+import React from "react";
+import {View, Text} from "react-native";
+import {AppMainLogo} from "../../assets/svg";
+import {ControlledInput} from "../../components/Inputs/ControlledInput";
+import {useForm} from "react-hook-form";
+import {styles} from "./styles";
+import {BoxedContainer} from "../../components/Containers/BoxedContainer";
+import {BaseButton} from "../../components/Buttons/BaseButton";
+import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
+import {SafeAreaView} from "react-native-safe-area-context";
+import authStore from "../../stores/AuthStore";
 import {observer} from "mobx-react-lite";
 
-const RegistrationScreen: React.FC = observer(() => {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+interface FormData {
+  email: string;
+  password: string;
+  password2: string;
+  first_name: string;
+  last_name: string;
+}
 
-  const handleRegister = () => {
-    console.log("Registering user:", {username, email, password});
+const Register = observer(() => {
+  const {control, handleSubmit} = useForm<FormData>({
+    defaultValues: {
+      email: "",
+      password: "",
+      password2: "",
+      first_name: "",
+      last_name: "",
+    },
+  });
+
+  const onSubmit = async (formData: FormData) => {
+    await authStore.register(formData);
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Register</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Username"
-        value={username}
-        onChangeText={setUsername}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-        keyboardType="email-address"
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-      />
-      <Button title="Register" onPress={handleRegister} />
-    </View>
+    <SafeAreaView>
+      <KeyboardAwareScrollView>
+        <View style={styles.container}>
+          <View style={styles.logoContainer}>
+            <AppMainLogo />
+            <Text style={styles.subTitle}>Register via e-mail</Text>
+          </View>
+
+          <BoxedContainer>
+            <ControlledInput
+              control={control}
+              name="first_name"
+              placeholder={"Enter your first name"}
+              label={"First name"}
+              variant="solid"
+              containerStyle={styles.input}
+            />
+            <ControlledInput
+              control={control}
+              name="last_name"
+              placeholder={"Enter your last name"}
+              label={"Last name"}
+              variant="solid"
+              containerStyle={styles.input}
+            />
+            <ControlledInput
+              control={control}
+              autoCapitalize="none"
+              name="email"
+              placeholder={"Enter your email"}
+              label={"Email"}
+              variant="solid"
+              containerStyle={styles.input}
+              keyboardType="email-address"
+            />
+            <ControlledInput
+              control={control}
+              name="password"
+              placeholder={"Enter your password"}
+              label={"Password"}
+              variant="solid"
+              containerStyle={styles.input}
+              isPasswordField
+              textContentType="newPassword"
+            />
+            <ControlledInput
+              control={control}
+              name="password2"
+              placeholder={"Repeat your password"}
+              label={"Repeat password"}
+              variant="solid"
+              containerStyle={styles.input}
+              isPasswordField
+              textContentType="newPassword"
+            />
+            <BaseButton title="Register" onPress={handleSubmit(onSubmit)} />
+            <Text>Error: {authStore.getError}</Text>
+          </BoxedContainer>
+        </View>
+      </KeyboardAwareScrollView>
+    </SafeAreaView>
   );
 });
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    padding: 16,
-  },
-  title: {
-    fontSize: 24,
-    marginBottom: 16,
-    textAlign: "center",
-  },
-  input: {
-    height: 40,
-    borderColor: "gray",
-    borderWidth: 1,
-    marginBottom: 12,
-    paddingHorizontal: 8,
-  },
-});
-
-export default RegistrationScreen;
+export default Register;

@@ -100,6 +100,10 @@ class AuthStore {
   get isLoggedIn() {
     return this.user !== null;
   }
+
+  get getError() {
+    return this.error;
+  }
 }
 
 const authStore = new AuthStore();
