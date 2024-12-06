@@ -4,7 +4,10 @@ import styles from "./styles";
 import {GestureHandlerRootView} from "react-native-gesture-handler";
 import {RootNavigator} from "./navigation/navigators";
 import {SafeAreaProvider} from "react-native-safe-area-context";
+import {Provider} from "mobx-react";
+import authStore from "./stores/AuthStore";
 import {COLORS} from "./constants/colors";
+import LoadingOverlay from "./components/UI/LoadingOverlay";
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === "dark";
@@ -17,11 +20,14 @@ function App(): React.JSX.Element {
   return (
     <GestureHandlerRootView style={styles.fullScreen}>
       <SafeAreaProvider>
-        <StatusBar
-          barStyle={isDarkMode ? "light-content" : "dark-content"}
-          backgroundColor={backgroundStyle.backgroundColor}
-        />
-        <RootNavigator />
+        <Provider authStore={authStore}>
+          <StatusBar
+            barStyle={isDarkMode ? "light-content" : "dark-content"}
+            backgroundColor={backgroundStyle.backgroundColor}
+          />
+          <RootNavigator />
+          <LoadingOverlay />
+        </Provider>
       </SafeAreaProvider>
     </GestureHandlerRootView>
   );

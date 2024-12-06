@@ -1,7 +1,8 @@
 import React, {useState} from "react";
 import {View, Text, TextInput, Button, StyleSheet} from "react-native";
+import {observer} from "mobx-react-lite";
 
-const RegistrationScreen: React.FC = () => {
+const RegistrationScreen: React.FC = observer(() => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -36,7 +37,7 @@ const RegistrationScreen: React.FC = () => {
       <Button title="Register" onPress={handleRegister} />
     </View>
   );
-};
+});
 
 const styles = StyleSheet.create({
   container: {

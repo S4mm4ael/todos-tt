@@ -1,13 +1,14 @@
 import React, {useState} from "react";
 import {View, Text, TextInput, Button, StyleSheet} from "react-native";
+import {observer} from "mobx-react-lite";
+import authStore from "../../stores/AuthStore";
 
-const Login: React.FC = () => {
+const Login: React.FC = observer(() => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = () => {
-    console.log("Email:", email);
-    console.log("Password:", password);
+    authStore.login({email, password});
   };
 
   return (
@@ -31,7 +32,7 @@ const Login: React.FC = () => {
       <Button title="Login" onPress={handleLogin} />
     </View>
   );
-};
+});
 
 const styles = StyleSheet.create({
   container: {
