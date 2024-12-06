@@ -3,9 +3,12 @@ import {MMKV} from "react-native-mmkv";
 import Axios from "axios";
 import {MMKV_KEYS} from "../constants/storageKeys";
 import authStore from "../stores/AuthStore";
+import {API} from "../stores/constants";
 
 export const MMKVstorage = new MMKV();
 export const BASE_URL = Config.API_BASE_URL;
+
+console.log("BASE", BASE_URL);
 
 export interface GenericResponse {
   success: boolean;
@@ -35,6 +38,13 @@ axios.interceptors.request.use(
     if (config.headers) {
       config.headers.Authorization = `${token}`;
     }
+    console.log("Request:", {
+      fullUrl: `${config.baseURL}${config.url}`,
+      url: config.url,
+      method: config.method,
+      headers: config.headers,
+      data: config.data,
+    });
     return config;
   },
   (error) => {
@@ -50,7 +60,7 @@ export type TokenRefresh = {
 
 export const refreshTokenRequest = async (refresh: TokenRefresh) => {
   try {
-    const res = await axios.post<TokenRefresh>("/token/refresh", {
+    const res = await axios.post<TokenRefresh>(API.CREATE_REFRESH_TOKEN, {
       refresh,
     });
     return res.data.access;
@@ -79,6 +89,14 @@ export const getRefreshToken = (): string | null =>
 
 axios.interceptors.response.use(
   (response) => {
+    console.log("Response:", {
+      url: response.config.url,
+      method: response.config.method,
+      headers: response.config.headers,
+      data: response.config.data,
+      status: response.status,
+      response: response.data,
+    });
     return response;
   },
   async (error) => {

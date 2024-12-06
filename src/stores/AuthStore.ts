@@ -1,5 +1,5 @@
 // src/stores/AuthStore.ts
-import {makeAutoObservable} from "mobx";
+import {makeAutoObservable, action, runInAction} from "mobx";
 import {axios} from "../services/axiosConfig";
 import {API} from "./constants";
 
@@ -21,7 +21,11 @@ class AuthStore {
   error = null;
 
   constructor() {
-    makeAutoObservable(this);
+    makeAutoObservable(this, {
+      register: action,
+      login: action,
+      logout: action,
+    });
   }
 
   async register({
@@ -31,46 +35,61 @@ class AuthStore {
     first_name,
     last_name,
   }: EmailRegister) {
-    this.loading = true;
-    this.error = null;
-    console.log("Register in with:", {
+    const body = {
       email,
       password,
       password2,
       first_name,
       last_name,
-    });
+    };
+
+    this.loading = true;
+    this.error = null;
+
     try {
-      const response = await axios.post(API.REGISTER, {
-        email,
-        password,
-        password2,
-        first_name,
-        last_name,
+      const response = await axios.post(API.REGISTER, body);
+      runInAction(() => {
+        this.user = response.data;
+        this.loading = false;
       });
-      this.user = response.data;
     } catch (error) {
-      this.error = error.response?.data?.message || "Registration failed";
+      console.log(error);
+      runInAction(() => {
+        this.error = error.response?.data?.message || "Registration failed";
+        this.loading = false;
+      });
     } finally {
-      this.loading = false;
+      runInAction(() => {
+        this.loading = false;
+      });
     }
   }
 
   async login({email, password}: EmailSignIn) {
-    this.loading = true;
-    this.error = null;
-    console.log("Logging in with:", {
+    const body = {
       email,
       password,
-    });
+    };
+
+    this.loading = true;
+    this.error = null;
+
     try {
-      const response = await axios.post(API.LOGIN, {email, password});
-      this.user = response.data;
+      const response = await axios.post(API.LOGIN, body);
+      runInAction(() => {
+        this.user = response.data;
+        this.loading = false;
+      });
     } catch (error) {
-      this.error = error.response?.data?.message || "Login failed";
       console.log(error);
+      runInAction(() => {
+        this.error = error.response?.data?.message || "Login failed";
+        this.loading = false;
+      });
     } finally {
-      this.loading = false;
+      runInAction(() => {
+        this.loading = false;
+      });
     }
   }
 

@@ -8,8 +8,6 @@ const Login: React.FC = observer(() => {
   const [password, setPassword] = useState("");
 
   const handleLogin = () => {
-    console.log("Email:", email);
-    console.log("Password:", password);
     authStore.login({email, password});
   };
 
