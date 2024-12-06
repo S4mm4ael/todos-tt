@@ -23,6 +23,7 @@ class AuthStore {
   user = null;
   loading = false;
   error = null;
+  errorObject = null;
 
   constructor() {
     makeAutoObservable(this, {
@@ -36,8 +37,12 @@ class AuthStore {
     return this.user !== null;
   }
 
-  get getError() {
+  get getErrorLogin() {
     return this.error;
+  }
+
+  get getErrorRegister() {
+    return this.errorObject;
   }
 
   async register({
@@ -56,7 +61,7 @@ class AuthStore {
     };
 
     this.loading = true;
-    this.error = null;
+    this.errorObject = null;
 
     try {
       const response = await axios.post(API.REGISTER, body);
@@ -65,8 +70,7 @@ class AuthStore {
         this.loading = false;
       });
     } catch (error) {
-      console.log("Error", error.response?.data);
-      this.error = error.response?.data?.details || "Registration failed";
+      this.errorObject = error.response?.data || "Registration failed";
       runInAction(() => {
         this.loading = false;
       });
@@ -106,6 +110,11 @@ class AuthStore {
 
   logout() {
     this.user = null;
+  }
+
+  clearErrors() {
+    this.error = null;
+    this.errorObject = null;
   }
 }
 

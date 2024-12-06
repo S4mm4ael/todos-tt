@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {View, Text} from "react-native";
 import {AppMainLogo} from "../../assets/svg";
 import {ControlledInput} from "../../components/Inputs/ControlledInput";
@@ -34,6 +34,12 @@ const Register = observer(() => {
     await authStore.register(formData);
   };
 
+  useEffect(() => {
+    return () => {
+      authStore.clearErrors();
+    };
+  }, []);
+
   return (
     <SafeAreaView>
       <KeyboardAwareScrollView>
@@ -42,7 +48,6 @@ const Register = observer(() => {
             <AppMainLogo />
             <Text style={styles.subTitle}>Register via e-mail</Text>
           </View>
-
           <BoxedContainer>
             <ControlledInput
               control={control}
@@ -51,6 +56,7 @@ const Register = observer(() => {
               label={"First name"}
               variant="solid"
               containerStyle={styles.input}
+              errorMessage={authStore.getErrorRegister?.first_name?.[0] || ""}
             />
             <ControlledInput
               control={control}
@@ -59,6 +65,7 @@ const Register = observer(() => {
               label={"Last name"}
               variant="solid"
               containerStyle={styles.input}
+              errorMessage={authStore.getErrorRegister?.last_name?.[0] || ""}
             />
             <ControlledInput
               control={control}
@@ -69,6 +76,7 @@ const Register = observer(() => {
               variant="solid"
               containerStyle={styles.input}
               keyboardType="email-address"
+              errorMessage={authStore.getErrorRegister?.email?.[0] || ""}
             />
             <ControlledInput
               control={control}
@@ -79,6 +87,7 @@ const Register = observer(() => {
               containerStyle={styles.input}
               isPasswordField
               textContentType="newPassword"
+              errorMessage={authStore.getErrorRegister?.password?.[0] || ""}
             />
             <ControlledInput
               control={control}
@@ -89,9 +98,9 @@ const Register = observer(() => {
               containerStyle={styles.input}
               isPasswordField
               textContentType="newPassword"
+              errorMessage={authStore.getErrorRegister?.password2?.[0] || ""}
             />
             <BaseButton title="Register" onPress={handleSubmit(onSubmit)} />
-            <Text>Error: {authStore.getError}</Text>
           </BoxedContainer>
         </View>
       </KeyboardAwareScrollView>

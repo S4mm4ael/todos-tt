@@ -4,6 +4,7 @@ import {windowWidth} from "../../helpers";
 const styles = StyleSheet.create({
   container: {
     paddingTop: 80,
+    paddingBottom: 40,
     flex: 1,
     justifyContent: "center",
     alignItems: "center",

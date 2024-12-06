@@ -1,11 +1,10 @@
-import React, {useState} from "react";
+import React from "react";
 import {
   View,
   Text,
   Pressable,
   KeyboardAvoidingView,
   Platform,
-  Keyboard,
 } from "react-native";
 import {observer} from "mobx-react-lite";
 import {useForm} from "react-hook-form";
@@ -72,9 +71,9 @@ const Login: React.FC = observer(() => {
                 containerStyle={styles.input}
               />
             ))}
-            {authStore.getError && (
+            {authStore.getErrorLogin && (
               <View style={styles.errorContainer}>
-                <ValidationWarning errorMessage={authStore.getError} />
+                <ValidationWarning errorMessage={authStore.getErrorLogin} />
               </View>
             )}
             <BaseButton
