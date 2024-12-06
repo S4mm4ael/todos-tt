@@ -6,22 +6,24 @@ import {Input} from "../BaseInput";
 
 interface ControlledInputProps extends InputProps {
   name: string;
-
+  rules?: object;
   control: Control<any>;
   setValue?: UseFormSetValue<any>;
 }
 
 export const ControlledInput = React.forwardRef(
   (
-    {name, control, ...props}: ControlledInputProps,
+    {name, control, rules, ...props}: ControlledInputProps,
     ref: ForwardedRef<TextInput>
   ) => {
     const {
       field: {value, onChange},
+      fieldState: {error},
     } = useController({
       control,
       defaultValue: "",
       name,
+      rules,
     });
 
     return <Input ref={ref} {...props} value={value} onChangeText={onChange} />;

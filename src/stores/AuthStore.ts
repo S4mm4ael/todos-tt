@@ -1,7 +1,11 @@
 // src/stores/AuthStore.ts
-import {makeAutoObservable, action, runInAction} from "mobx";
+import {makeAutoObservable, action, runInAction, configure} from "mobx";
 import {axios} from "../services/axiosConfig";
 import {API} from "./constants";
+
+configure({
+  enforceActions: "never",
+});
 
 export type EmailSignIn = {
   email: string;
@@ -26,6 +30,14 @@ class AuthStore {
       login: action,
       logout: action,
     });
+  }
+
+  get isLoggedIn() {
+    return this.user !== null;
+  }
+
+  get getError() {
+    return this.error;
   }
 
   async register({
@@ -53,9 +65,8 @@ class AuthStore {
         this.loading = false;
       });
     } catch (error) {
-      console.log(error);
+      this.error = error.response?.data?.details || "Registration failed";
       runInAction(() => {
-        this.error = error.response?.data?.message || "Registration failed";
         this.loading = false;
       });
     } finally {
@@ -81,9 +92,8 @@ class AuthStore {
         this.loading = false;
       });
     } catch (error) {
-      console.log(error);
+      this.error = error.response?.data.detail || "Login failed";
       runInAction(() => {
-        this.error = error.response?.data?.message || "Login failed";
         this.loading = false;
       });
     } finally {
@@ -95,14 +105,6 @@ class AuthStore {
 
   logout() {
     this.user = null;
-  }
-
-  get isLoggedIn() {
-    return this.user !== null;
-  }
-
-  get getError() {
-    return this.error;
   }
 }
 

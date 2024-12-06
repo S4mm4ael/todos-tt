@@ -11,4 +11,5 @@ export enum COLORS {
   DARK = "#121212",
   YELLOW = "#FFEB3B",
   LIGHT_YELLOW = "#FFE082",
+  LIGHT_GRAY = "#E0E0E0",
 }

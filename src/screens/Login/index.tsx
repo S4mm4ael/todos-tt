@@ -1,17 +1,24 @@
 import React, {useState} from "react";
-import {View, Text, Pressable, Button} from "react-native";
+import {
+  View,
+  Text,
+  Pressable,
+  KeyboardAvoidingView,
+  Platform,
+  Keyboard,
+} from "react-native";
 import {observer} from "mobx-react-lite";
 import {useForm} from "react-hook-form";
 import authStore from "../../stores/AuthStore";
 import {ROUTES} from "../../constants/routes";
 import {useNavigation} from "@react-navigation/native";
 import {SafeAreaView} from "react-native-safe-area-context";
-import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 import {ControlledInput} from "../../components/Inputs/ControlledInput";
 import {ValidationWarning} from "../../components/ValidationWarning";
 import {BoxedContainer} from "../../components/Containers/BoxedContainer";
 import {AppMainLogo} from "../../assets/svg";
 import {styles} from "./styles";
+import {BaseButton} from "../../components/Buttons/BaseButton";
 
 interface FormData {
   email: string;
@@ -19,12 +26,16 @@ interface FormData {
 }
 
 const Login: React.FC = observer(() => {
-  const [error, setError] = useState<string>("");
-
   const {navigate} = useNavigation<any>();
 
-  const {control, handleSubmit, reset} = useForm<FormData>({
+  const {
+    control,
+    handleSubmit,
+    reset,
+    formState: {isValid},
+  } = useForm<FormData>({
     defaultValues: {email: "", password: ""},
+    mode: "onChange",
   });
 
   const onSubmit = async ({email, password}: FormData) => {
@@ -34,12 +45,13 @@ const Login: React.FC = observer(() => {
   const goToRegistrationScreen = () => {
     navigate(ROUTES.REGISTER);
     reset();
-    setError("");
   };
 
   return (
     <SafeAreaView>
-      <KeyboardAwareScrollView>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+      >
         <View style={styles.container}>
           <View style={styles.logoContainer}>
             <AppMainLogo />
@@ -54,6 +66,7 @@ const Login: React.FC = observer(() => {
               variant="solid"
               containerStyle={styles.input}
               keyboardType="email-address"
+              rules={{required: "Email is required"}}
             />
             <ControlledInput
               control={control}
@@ -63,18 +76,27 @@ const Login: React.FC = observer(() => {
               variant="solid"
               containerStyle={styles.input}
               isPasswordField
+              rules={{required: "Password is required"}}
             />
-            <Button title="Login" onPress={handleSubmit(onSubmit)} />
-            <ValidationWarning errorMessage={error} />
+            {authStore.getError && (
+              <View style={styles.errorContainer}>
+                <ValidationWarning errorMessage={authStore.getError} />
+              </View>
+            )}
+            <BaseButton
+              disabled={!isValid}
+              title="Login"
+              onPress={handleSubmit(onSubmit)}
+            />
           </BoxedContainer>
           <View style={styles.signUpBlock}>
-            <Text style={styles.text1}>Don't have an account?</Text>
+            <Text style={styles.textHelper}>Don't have an account?</Text>
             <Pressable onPress={goToRegistrationScreen}>
               <Text style={styles.signUpBtn}>Sign up</Text>
             </Pressable>
           </View>
         </View>
-      </KeyboardAwareScrollView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 });

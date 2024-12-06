@@ -21,7 +21,14 @@ export const BaseButton = ({
   <TouchableOpacity
     activeOpacity={activeOpacity}
     onPress={onPress}
-    style={[styles.container, styles[type], containerStyle]}
+    style={[
+      styles.container,
+      styles[type],
+      containerStyle,
+      disabled
+        ? {backgroundColor: COLORS.LIGHT_GRAY, borderColor: COLORS.LIGHT_GRAY}
+        : null,
+    ]}
     disabled={disabled || loading}
   >
     {loading ? (

@@ -53,7 +53,7 @@ export const Input = React.forwardRef(
             maxLength={letterCounter ?? undefined}
             secureTextEntry={isPasswordField ? secureTextEntry : false}
             {...rest}
-            placeholderTextColor={COLORS.LIGHT}
+            placeholderTextColor={COLORS.LIGHT_GRAY}
             placeholder={rest.placeholder ? rest.placeholder : ""}
             style={[
               styles.input,

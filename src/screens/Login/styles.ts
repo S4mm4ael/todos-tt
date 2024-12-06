@@ -14,8 +14,7 @@ const styles = StyleSheet.create({
     color: COLORS.BLACK,
   },
   container: {
-    paddingTop: 80,
-    flex: 1,
+    paddingTop: 40,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -25,14 +24,18 @@ const styles = StyleSheet.create({
   signUpBlock: {
     flexDirection: "row",
     gap: 10,
+    marginTop: 20,
   },
   signUpBtn: {
-    fontSize: 16,
+    fontSize: 14,
     color: COLORS.PRIMARY,
   },
-  text1: {
+  textHelper: {
     fontSize: 14,
     color: COLORS.BLACK,
+  },
+  errorContainer: {
+    marginBottom: 16,
   },
 });
 export {styles};
