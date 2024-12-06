@@ -6,8 +6,6 @@ import {RootNavigator} from "./navigation/navigators";
 import {SafeAreaProvider} from "react-native-safe-area-context";
 import {COLORS} from "./constants/colors";
 
-import Config from "react-native-config";
-
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === "dark";
 
@@ -15,8 +13,6 @@ function App(): React.JSX.Element {
     backgroundColor: isDarkMode ? COLORS.BLACK : COLORS.WHITE,
     flex: 1,
   };
-
-  console.log("ENVIRONMENT", Config.API_BASE_URL);
 
   return (
     <GestureHandlerRootView style={styles.fullScreen}>
