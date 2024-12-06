@@ -1,7 +1,6 @@
-// src/stores/AuthStore.ts
 import {makeAutoObservable} from "mobx";
 import axios from "axios";
-import {API, API_BASE_URL} from "./constants";
+import {API} from "./constants";
 
 class AuthStore {
   user = null;
@@ -16,7 +15,7 @@ class AuthStore {
     this.loading = true;
     this.error = null;
     try {
-      const response = await axios.post(`${API_BASE_URL}${API.REGISTER}`, {
+      const response = await axios.post(API.REGISTER, {
         username,
         password,
       });
@@ -32,7 +31,7 @@ class AuthStore {
     this.loading = true;
     this.error = null;
     try {
-      const response = await axios.post(`${API_BASE_URL}${API.LOGIN}`, {
+      const response = await axios.post(API.LOGIN, {
         username,
         password,
       });
