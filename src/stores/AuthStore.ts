@@ -2,22 +2,11 @@
 import {makeAutoObservable, action, runInAction, configure} from "mobx";
 import {axios} from "../services/axiosConfig";
 import {API} from "./constants";
+import {EmailRegister, EmailSignIn, ErrorRegisterObject} from "./types";
 
 configure({
   enforceActions: "never",
 });
-
-export type EmailSignIn = {
-  email: string;
-  password: string;
-};
-export type EmailRegister = {
-  email: string;
-  password: string;
-  password2: string;
-  first_name: string;
-  last_name: string;
-};
 
 class AuthStore {
   user = null;
@@ -41,7 +30,7 @@ class AuthStore {
     return this.error;
   }
 
-  get getErrorRegister() {
+  get getErrorRegister(): ErrorRegisterObject | null {
     return this.errorObject;
   }
 
