@@ -16,8 +16,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     paddingHorizontal: 16,
     color: COLORS.BLACK,
-    borderWidth: 2,
-    borderColor: COLORS.PRIMARY,
     borderRadius: 8,
   },
   inputSolid: {

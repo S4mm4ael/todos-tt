@@ -65,6 +65,7 @@ class AuthStore {
         this.loading = false;
       });
     } catch (error) {
+      console.log("Error", error.response?.data);
       this.error = error.response?.data?.details || "Registration failed";
       runInAction(() => {
         this.loading = false;

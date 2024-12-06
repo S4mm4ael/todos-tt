@@ -19,6 +19,7 @@ import {BoxedContainer} from "../../components/Containers/BoxedContainer";
 import {AppMainLogo} from "../../assets/svg";
 import {styles} from "./styles";
 import {BaseButton} from "../../components/Buttons/BaseButton";
+import {inputFields} from "./fields";
 
 interface FormData {
   email: string;
@@ -57,27 +58,20 @@ const Login: React.FC = observer(() => {
             <AppMainLogo />
           </View>
           <BoxedContainer>
-            <ControlledInput
-              autoCapitalize="none"
-              control={control}
-              name="email"
-              placeholder={"Enter your email"}
-              label={"Email"}
-              variant="solid"
-              containerStyle={styles.input}
-              keyboardType="email-address"
-              rules={{required: "Email is required"}}
-            />
-            <ControlledInput
-              control={control}
-              name="password"
-              placeholder={"Enter your password"}
-              label={"Password"}
-              variant="solid"
-              containerStyle={styles.input}
-              isPasswordField
-              rules={{required: "Password is required"}}
-            />
+            {inputFields.map((field) => (
+              <ControlledInput
+                key={field.name}
+                control={control}
+                name={field.name}
+                placeholder={field.placeholder}
+                label={field.label}
+                autoCapitalize={field.autoCapitalize}
+                keyboardType={field.keyboardType}
+                isPasswordField={field.isPasswordField}
+                rules={field.rules}
+                containerStyle={styles.input}
+              />
+            ))}
             {authStore.getError && (
               <View style={styles.errorContainer}>
                 <ValidationWarning errorMessage={authStore.getError} />
