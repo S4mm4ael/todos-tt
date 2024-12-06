@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import {View, Text, TextInput, Button, StyleSheet} from "react-native";
 import {observer} from "mobx-react-lite";
+import authStore from "../../stores/AuthStore";
 
 const Login: React.FC = observer(() => {
   const [email, setEmail] = useState("");
@@ -9,6 +10,7 @@ const Login: React.FC = observer(() => {
   const handleLogin = () => {
     console.log("Email:", email);
     console.log("Password:", password);
+    authStore.login({email, password});
   };
 
   return (
