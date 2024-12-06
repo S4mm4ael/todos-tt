@@ -41,6 +41,10 @@ class AuthStore {
   logout() {
     this.user = null;
   }
+
+  get isLoggedIn() {
+    return this.user !== null;
+  }
 }
 
 const authStore = new AuthStore();

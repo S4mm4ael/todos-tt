@@ -3,8 +3,10 @@ import {
   NavigationContainer,
   useNavigationContainerRef,
 } from "@react-navigation/native";
+import {observer} from "mobx-react-lite";
 import PrivateRoutes from "./private";
 import PublicRoutes from "./public";
+import authStore from "../../stores/AuthStore";
 
 const config = {
   screens: {},
@@ -15,14 +17,9 @@ const linking = {
   config: config,
 };
 
-export const RootNavigator = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+export const RootNavigator = observer(() => {
   const navigationRef = useNavigationContainerRef();
   const routeNameRef = useRef<string>();
-
-  useEffect(() => {
-    setIsLoggedIn(true);
-  }, []);
 
   return (
     <NavigationContainer
@@ -39,7 +36,7 @@ export const RootNavigator = () => {
         }
       }}
     >
-      {isLoggedIn ? <PrivateRoutes /> : <PublicRoutes />}
+      {authStore.isLoggedIn ? <PrivateRoutes /> : <PublicRoutes />}
     </NavigationContainer>
   );
-};
+});
