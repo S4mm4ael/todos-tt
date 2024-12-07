@@ -4,11 +4,9 @@ import Axios from "axios";
 import {MMKV_KEYS} from "../constants/storageKeys";
 import authStore from "../stores/AuthStore";
 import {API} from "../stores/constants";
+import {MMKVstorage} from "./localStorage";
 
-export const MMKVstorage = new MMKV();
 export const BASE_URL = Config.API_BASE_URL;
-
-console.log("BASE", BASE_URL);
 
 export interface GenericResponse {
   success: boolean;
@@ -101,6 +99,14 @@ axios.interceptors.response.use(
   },
   async (error) => {
     const originalRequest = error.config;
+    console.warn("Response Error:", {
+      url: originalRequest.url,
+      method: originalRequest.method,
+      headers: originalRequest.headers,
+      data: originalRequest.data,
+      status: error.response?.status,
+      response: error.response?.data,
+    });
     if (error.response.status === 401 && !originalRequest._retry) {
       authStore.logout();
       MMKVstorage.set(MMKV_KEYS.ACCESS_TOKEN, "");

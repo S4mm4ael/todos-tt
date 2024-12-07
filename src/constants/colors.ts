@@ -9,4 +9,7 @@ export enum COLORS {
   INFO = "#2979FF",
   LIGHT = "#F5F5F5",
   DARK = "#121212",
+  YELLOW = "#FFEB3B",
+  LIGHT_YELLOW = "#FFE082",
+  LIGHT_GRAY = "#E0E0E0",
 }

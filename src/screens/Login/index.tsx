@@ -1,57 +1,100 @@
-import React, {useState} from "react";
-import {View, Text, TextInput, Button, StyleSheet} from "react-native";
+import React from "react";
+import {
+  View,
+  Text,
+  Pressable,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
 import {observer} from "mobx-react-lite";
+import {useForm} from "react-hook-form";
 import authStore from "../../stores/AuthStore";
+import {ROUTES} from "../../constants/routes";
+import {useNavigation} from "@react-navigation/native";
+import {SafeAreaView} from "react-native-safe-area-context";
+import {ControlledInput} from "../../components/Inputs/ControlledInput";
+import {ValidationWarning} from "../../components/ValidationWarning";
+import {BoxedContainer} from "../../components/Containers/BoxedContainer";
+import {AppMainLogo} from "../../assets/svg";
+import {styles} from "./styles";
+import {BaseButton} from "../../components/Buttons/BaseButton";
+import {inputFields} from "./fields";
+import {getLocalUser} from "../../services/localStorage";
+
+interface FormData {
+  email: string;
+  password: string;
+}
 
 const Login: React.FC = observer(() => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const {navigate} = useNavigation<any>();
 
-  const handleLogin = () => {
-    authStore.login({email, password});
+  const {
+    control,
+    handleSubmit,
+    reset,
+    formState: {isValid},
+  } = useForm<FormData>({
+    defaultValues: {email: "", password: ""},
+    mode: "onChange",
+  });
+
+  const onSubmit = async ({email, password}: FormData) => {
+    await authStore.login({email, password}).then(() => {
+      getLocalUser(email);
+    });
+  };
+
+  const goToRegistrationScreen = () => {
+    navigate(ROUTES.REGISTER);
+    reset();
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Login</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-        keyboardType="email-address"
-        autoCapitalize="none"
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-      />
-      <Button title="Login" onPress={handleLogin} />
-    </View>
+    <SafeAreaView>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+      >
+        <View style={styles.container}>
+          <View style={styles.logoContainer}>
+            <AppMainLogo />
+          </View>
+          <BoxedContainer>
+            {inputFields.map((field) => (
+              <ControlledInput
+                key={field.name}
+                control={control}
+                name={field.name}
+                placeholder={field.placeholder}
+                label={field.label}
+                autoCapitalize={field.autoCapitalize}
+                keyboardType={field.keyboardType}
+                isPasswordField={field.isPasswordField}
+                rules={field.rules}
+                containerStyle={styles.input}
+              />
+            ))}
+            {authStore.getErrorLogin && (
+              <View style={styles.errorContainer}>
+                <ValidationWarning errorMessage={authStore.getErrorLogin} />
+              </View>
+            )}
+            <BaseButton
+              disabled={!isValid}
+              title="Login"
+              onPress={handleSubmit(onSubmit)}
+            />
+          </BoxedContainer>
+          <View style={styles.signUpBlock}>
+            <Text style={styles.textHelper}>Don't have an account?</Text>
+            <Pressable onPress={goToRegistrationScreen}>
+              <Text style={styles.signUpBtn}>Sign up</Text>
+            </Pressable>
+          </View>
+        </View>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
-});
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    padding: 16,
-  },
-  title: {
-    fontSize: 24,
-    marginBottom: 16,
-    textAlign: "center",
-  },
-  input: {
-    height: 40,
-    borderColor: "gray",
-    borderWidth: 1,
-    marginBottom: 12,
-    paddingHorizontal: 8,
-  },
 });
 
 export default Login;

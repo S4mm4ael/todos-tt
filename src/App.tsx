@@ -7,28 +7,31 @@ import {SafeAreaProvider} from "react-native-safe-area-context";
 import {Provider} from "mobx-react";
 import authStore from "./stores/AuthStore";
 import {COLORS} from "./constants/colors";
-import LoadingOverlay from "./components/UI/LoadingOverlay";
+import LoadingOverlay from "./components/LoadingOverlay";
+import {PortalProvider} from "@gorhom/portal";
+import {BottomSheetModalProvider} from "@gorhom/bottom-sheet";
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === "dark";
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? COLORS.BLACK : COLORS.WHITE,
-    flex: 1,
-  };
+  const backgroundColor = isDarkMode ? COLORS.DARK : COLORS.LIGHT;
 
   return (
     <GestureHandlerRootView style={styles.fullScreen}>
-      <SafeAreaProvider>
-        <Provider authStore={authStore}>
-          <StatusBar
-            barStyle={isDarkMode ? "light-content" : "dark-content"}
-            backgroundColor={backgroundStyle.backgroundColor}
-          />
-          <RootNavigator />
-          <LoadingOverlay />
-        </Provider>
-      </SafeAreaProvider>
+      <PortalProvider>
+        <SafeAreaProvider>
+          <Provider authStore={authStore}>
+            <StatusBar
+              barStyle={isDarkMode ? "light-content" : "dark-content"}
+              backgroundColor={backgroundColor}
+            />
+            <BottomSheetModalProvider>
+              <RootNavigator />
+            </BottomSheetModalProvider>
+            <LoadingOverlay />
+          </Provider>
+        </SafeAreaProvider>
+      </PortalProvider>
     </GestureHandlerRootView>
   );
 }
