@@ -2,7 +2,7 @@ import {styles} from "./styles";
 import authStore from "../../stores/AuthStore";
 import {KeyboardTypeOptions} from "react-native";
 
-export const inputFields = [
+export const getInputFields = () => [
   {
     name: "first_name",
     placeholder: "Enter your first name",

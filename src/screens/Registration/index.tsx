@@ -10,7 +10,7 @@ import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 import {SafeAreaView} from "react-native-safe-area-context";
 import authStore from "../../stores/AuthStore";
 import {observer} from "mobx-react-lite";
-import {inputFields} from "./fields";
+import {getInputFields} from "./fields";
 
 interface FormData {
   email: string;
@@ -50,7 +50,7 @@ const Register = observer(() => {
             <Text style={styles.subTitle}>Register via e-mail</Text>
           </View>
           <BoxedContainer>
-            {inputFields.map((field) => (
+            {getInputFields().map((field) => (
               <ControlledInput
                 key={field.name}
                 control={control}

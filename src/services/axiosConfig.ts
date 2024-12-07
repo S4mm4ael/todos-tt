@@ -101,6 +101,14 @@ axios.interceptors.response.use(
   },
   async (error) => {
     const originalRequest = error.config;
+    console.warn("Response Error:", {
+      url: originalRequest.url,
+      method: originalRequest.method,
+      headers: originalRequest.headers,
+      data: originalRequest.data,
+      status: error.response?.status,
+      response: error.response?.data,
+    });
     if (error.response.status === 401 && !originalRequest._retry) {
       authStore.logout();
       MMKVstorage.set(MMKV_KEYS.ACCESS_TOKEN, "");
