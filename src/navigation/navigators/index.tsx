@@ -36,7 +36,7 @@ export const RootNavigator = observer(() => {
         }
       }}
     >
-      {!authStore.isLoggedIn ? <PrivateRoutes /> : <PublicRoutes />}
+      {authStore.isLoggedIn ? <PrivateRoutes /> : <PublicRoutes />}
     </NavigationContainer>
   );
 });

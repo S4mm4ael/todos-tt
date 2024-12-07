@@ -2,7 +2,7 @@ import React, {ForwardedRef} from "react";
 import {TextInput} from "react-native";
 import {useController, Control, UseFormSetValue} from "react-hook-form";
 import {InputProps} from "../interfaces";
-import {Input} from "../BaseInput";
+import BaseInput from "../BaseInput";
 
 interface ControlledInputProps extends InputProps {
   name: string;
@@ -11,7 +11,7 @@ interface ControlledInputProps extends InputProps {
   setValue?: UseFormSetValue<any>;
 }
 
-export const ControlledInput = React.forwardRef(
+const ControlledInput = React.forwardRef(
   (
     {name, control, rules, ...props}: ControlledInputProps,
     ref: ForwardedRef<TextInput>
@@ -26,8 +26,10 @@ export const ControlledInput = React.forwardRef(
       rules,
     });
 
-    return <Input ref={ref} {...props} value={value} onChangeText={onChange} />;
+    return (
+      <BaseInput ref={ref} {...props} value={value} onChangeText={onChange} />
+    );
   }
 );
 
-export {Input};
+export default ControlledInput;

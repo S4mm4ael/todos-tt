@@ -1,7 +1,7 @@
 import React from "react";
 import {Text, View} from "react-native";
-import {BoxedContainer} from "../../components/Containers/BoxedContainer";
-import {BaseButton} from "../../components/Buttons/BaseButton";
+import {BoxedContainer} from "../../components/Containers";
+import {BaseButton} from "../../components/Buttons";
 import {MMKVstorage} from "../../services/localStorage";
 import {MMKV_KEYS} from "../../constants/storageKeys";
 // import {useUserStore} from "../../store/useUserStore";

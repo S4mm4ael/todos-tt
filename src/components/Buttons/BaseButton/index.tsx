@@ -6,7 +6,7 @@ import {BaseButtonProps, BUTTON_TYPE} from "./interfaces";
 import {styles} from "./styles";
 import {COLORS} from "../../../constants/colors";
 
-export const BaseButton = ({
+const BaseButton = ({
   title,
   onPress = () => {},
   type = BUTTON_TYPE.PRIMARY,
@@ -57,3 +57,5 @@ export const BaseButton = ({
     )}
   </TouchableOpacity>
 );
+
+export default BaseButton;

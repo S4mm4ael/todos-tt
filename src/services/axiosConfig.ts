@@ -4,6 +4,7 @@ import {MMKV_KEYS} from "../constants/storageKeys";
 import authStore from "../stores/AuthStore";
 import {API} from "../stores/constants";
 import {MMKVstorage} from "./localStorage";
+import {getRefreshToken, setAccessToken, getAccessToken} from "./localStorage";
 
 export const BASE_URL = Config.API_BASE_URL;
 
@@ -31,9 +32,10 @@ const axios = Axios.create({
 
 axios.interceptors.request.use(
   async (config) => {
-    const token = MMKVstorage.getString(MMKV_KEYS.ACCESS_TOKEN);
-    if (config.headers) {
-      config.headers.Authorization = `${token}`;
+    const token = getAccessToken();
+    if (token && config.headers) {
+      config.headers.Authorization = `Bearer ${token}`;
+      config.headers.Accept = "application/json";
     }
     console.log("Request:", {
       fullUrl: `${config.baseURL}${config.url}`,
@@ -50,14 +52,9 @@ axios.interceptors.request.use(
   }
 );
 
-export type TokenRefresh = {
-  refresh: string;
-  access?: string;
-};
-
-export const refreshTokenRequest = async (refresh: TokenRefresh) => {
+export const refreshTokenRequest = async (refresh: string) => {
   try {
-    const res = await axios.post<TokenRefresh>(API.CREATE_REFRESH_TOKEN, {
+    const res = await axios.post(API.CREATE_REFRESH_TOKEN, {
       refresh,
     });
     return res.data.access;
@@ -66,23 +63,16 @@ export const refreshTokenRequest = async (refresh: TokenRefresh) => {
   }
 };
 
-export const setAccessToken = async (accessToken: string) => {
-  MMKVstorage.set(MMKV_KEYS.ACCESS_TOKEN, accessToken);
-};
-
 async function refreshToken() {
   const refresh = getRefreshToken();
   if (refresh) {
-    const accessToken = await refreshTokenRequest({refresh});
+    const accessToken = await refreshTokenRequest(refresh);
     if (accessToken) {
       await setAccessToken(accessToken);
     }
     return accessToken;
   }
 }
-
-export const getRefreshToken = (): string | null =>
-  MMKVstorage.getString(MMKV_KEYS.REFRESH_TOKEN) ?? null;
 
 axios.interceptors.response.use(
   (response) => {
@@ -108,14 +98,14 @@ axios.interceptors.response.use(
     });
     if (error.response.status === 401 && !originalRequest._retry) {
       authStore.logout();
-      MMKVstorage.set(MMKV_KEYS.ACCESS_TOKEN, "");
+      setAccessToken("");
       originalRequest._retry = true;
       try {
         const newAccessToken = await refreshToken();
         originalRequest.headers.Authorization = `${newAccessToken}`;
       } catch (e) {
         console.warn("Error update token", e);
-        MMKVstorage.set(MMKV_KEYS.ACCESS_TOKEN, "");
+        setAccessToken("");
         return Promise.reject(e);
       }
     }

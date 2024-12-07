@@ -2,7 +2,7 @@
 import React from "react";
 import {View, ActivityIndicator, StyleSheet, Modal} from "react-native";
 import {observer} from "mobx-react-lite";
-import authStore from "../../stores/AuthStore";
+import {authStore, toDosStore} from "../../stores";
 import {COLORS} from "../../constants/colors";
 
 const LoadingOverlay = observer(() => {
@@ -10,7 +10,7 @@ const LoadingOverlay = observer(() => {
     <Modal
       transparent={true}
       animationType="none"
-      visible={authStore.loading}
+      visible={authStore.loading || toDosStore.loading}
       onRequestClose={() => {}}
     >
       <View style={styles.modalBackground}>
