@@ -1,5 +1,11 @@
 // src/stores/AuthStore.ts
-import {makeAutoObservable, action, runInAction, configure} from "mobx";
+import {
+  makeAutoObservable,
+  action,
+  runInAction,
+  configure,
+  computed,
+} from "mobx";
 import {axios} from "../services/axiosConfig";
 import {API} from "./constants";
 import {EmailRegister, EmailSignIn, ErrorRegisterObject} from "./types";
@@ -19,6 +25,7 @@ class AuthStore {
       register: action,
       login: action,
       logout: action,
+      getErrorRegister: computed,
     });
   }
 
@@ -54,11 +61,13 @@ class AuthStore {
 
     try {
       const response = await axios.post(API.REGISTER, body);
+      console.log("response", response);
       runInAction(() => {
         this.user = response.data;
         this.loading = false;
       });
     } catch (error) {
+      console.log("error", error.response);
       this.errorObject = error.response?.data || "Registration failed";
       runInAction(() => {
         this.loading = false;
