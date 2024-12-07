@@ -19,6 +19,7 @@ import {AppMainLogo} from "../../assets/svg";
 import {styles} from "./styles";
 import {BaseButton} from "../../components/Buttons/BaseButton";
 import {inputFields} from "./fields";
+import {getLocalUser} from "../../services/localStorage";
 
 interface FormData {
   email: string;
@@ -39,7 +40,9 @@ const Login: React.FC = observer(() => {
   });
 
   const onSubmit = async ({email, password}: FormData) => {
-    await authStore.login({email, password});
+    await authStore.login({email, password}).then(() => {
+      getLocalUser(email);
+    });
   };
 
   const goToRegistrationScreen = () => {

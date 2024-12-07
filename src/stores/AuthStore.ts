@@ -9,13 +9,15 @@ import {
 import {axios} from "../services/axiosConfig";
 import {API} from "./constants";
 import {EmailRegister, EmailSignIn, ErrorRegisterObject} from "./types";
+import {MMKVstorage, saveLocalUser} from "../services/localStorage";
+import {ResponseSignUp} from "../types/auth";
 
 configure({
   enforceActions: "never",
 });
 
 class AuthStore {
-  user = null;
+  user = null as ResponseSignUp | null;
   loading = false;
   error = null;
   errorObject = null;
@@ -31,6 +33,10 @@ class AuthStore {
 
   get isLoggedIn() {
     return this.user !== null;
+  }
+
+  get getUser() {
+    return this.user;
   }
 
   get getErrorLogin() {
@@ -66,13 +72,15 @@ class AuthStore {
         this.user = response.data;
         this.loading = false;
       });
+      saveLocalUser(email, response.data);
     } catch (error) {
-      console.log("error", error.response);
-      this.errorObject = error.response?.data || "Registration failed";
+      console.log("error", (error as any).response);
+      this.errorObject = (error as any).response?.data || "Registration failed";
       runInAction(() => {
         this.loading = false;
       });
     } finally {
+      console.log("finally", this.user);
       runInAction(() => {
         this.loading = false;
       });
@@ -90,12 +98,12 @@ class AuthStore {
 
     try {
       const response = await axios.post(API.LOGIN, body);
+      this.user = response.data;
       runInAction(() => {
-        this.user = response.data;
         this.loading = false;
       });
     } catch (error) {
-      this.error = error.response?.data.detail || "Login failed";
+      this.error = (error as any).response?.data.detail || "Login failed";
       runInAction(() => {
         this.loading = false;
       });
@@ -104,6 +112,10 @@ class AuthStore {
         this.loading = false;
       });
     }
+  }
+
+  setUser(user: ResponseSignUp | null) {
+    this.user = user;
   }
 
   logout() {
