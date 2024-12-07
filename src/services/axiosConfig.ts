@@ -1,5 +1,4 @@
 import Config from "react-native-config";
-import {MMKV} from "react-native-mmkv";
 import Axios from "axios";
 import {MMKV_KEYS} from "../constants/storageKeys";
 import authStore from "../stores/AuthStore";

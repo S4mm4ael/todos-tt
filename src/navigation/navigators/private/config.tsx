@@ -15,8 +15,8 @@ export const tabNavigatorOptions = ({
 }: TabBarOptionsProps): BottomTabNavigationOptions => ({
   headerShown: false,
   tabBarShowLabel: false,
-  tabBarActiveTintColor: "black",
-  tabBarInactiveTintColor: "black",
+  tabBarActiveTintColor: COLORS.PRIMARY,
+  tabBarInactiveTintColor: COLORS.LIGHT_GRAY,
   tabBarStyle: {
     height: 78,
     justifyContent: "center",
