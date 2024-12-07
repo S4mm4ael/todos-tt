@@ -13,6 +13,11 @@ export const styles = StyleSheet.create({
     marginBottom: 20,
     textAlign: "center",
   },
+  titleContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 20,
+  },
   infoContainer: {
     marginBottom: 20,
   },

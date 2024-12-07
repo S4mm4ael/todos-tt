@@ -9,9 +9,9 @@ import {styles} from "./styles";
 import {observer} from "mobx-react-lite";
 import authStore from "../../stores/AuthStore";
 import {ResponseSignUp} from "../../types/auth";
+import {AccountIcon} from "../../assets/svg";
 
 export const Account = observer(() => {
-  console.log("get user", authStore.getUser);
   const {
     email = "No data",
     first_name = "No data",
@@ -25,7 +25,10 @@ export const Account = observer(() => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Account Information</Text>
+      <View style={styles.titleContainer}>
+        <AccountIcon />
+        <Text style={styles.title}>Account Information</Text>
+      </View>
       <View style={styles.infoContainer}>
         <View style={styles.row}>
           <Text style={styles.label}>First Name:</Text>
