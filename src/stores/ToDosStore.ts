@@ -26,12 +26,17 @@ class ToDosStore {
       editToDo: action,
       deleteToDo: action,
       clearErrors: action,
+      todosStored: computed,
       todosCount: computed,
     });
   }
 
   get todosCount() {
     return this.todos.length;
+  }
+
+  get todosStored() {
+    return this.todos;
   }
 
   async getTodos() {
@@ -100,6 +105,7 @@ class ToDosStore {
   async deleteToDo(id: number) {
     this.loading = true;
     this.error = null;
+    console.log("id", id);
     try {
       await axios.delete(`${API.TODOS}${id}`);
       runInAction(() => {

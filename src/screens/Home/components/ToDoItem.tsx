@@ -13,7 +13,7 @@ interface ToDoListItemProps {
   done: boolean;
   openDeleteModal: () => void;
   bottomSheetDeleteModalRef: any;
-  deleteNote: () => void;
+  deleteNote: (id: number) => Promise<void>;
 }
 
 export const ToDoItem: React.FC<ToDoListItemProps> = ({
@@ -91,7 +91,7 @@ export const ToDoItem: React.FC<ToDoListItemProps> = ({
         description={description}
         bottomSheetModalRef={bottomSheetDeleteModalRef}
         closeModal={closeDeleteModal}
-        deleteNote={deleteNote}
+        deleteNote={() => deleteNote(id)}
         id={id}
       />
     </View>

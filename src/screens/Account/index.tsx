@@ -1,10 +1,9 @@
 import React from "react";
-import {Text, View} from "react-native";
+import {Text, View, SafeAreaView} from "react-native";
 import {BoxedContainer} from "../../components/Containers";
 import {BaseButton} from "../../components/Buttons";
 import {MMKVstorage} from "../../services/localStorage";
 import {MMKV_KEYS} from "../../constants/storageKeys";
-// import {useUserStore} from "../../store/useUserStore";
 import {styles} from "./styles";
 import {observer} from "mobx-react-lite";
 import authStore from "../../stores/AuthStore";
@@ -24,7 +23,7 @@ export const Account = observer(() => {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.titleContainer}>
         <AccountIcon />
         <Text style={styles.title}>Account Information</Text>
@@ -51,7 +50,7 @@ export const Account = observer(() => {
           containerStyle={styles.logoutBtn}
         />
       </BoxedContainer>
-    </View>
+    </SafeAreaView>
   );
 });
 

@@ -1,9 +1,7 @@
 import Config from "react-native-config";
 import Axios from "axios";
-import {MMKV_KEYS} from "../constants/storageKeys";
 import authStore from "../stores/AuthStore";
 import {API} from "../stores/constants";
-import {MMKVstorage} from "./localStorage";
 import {getRefreshToken, setAccessToken, getAccessToken} from "./localStorage";
 
 export const BASE_URL = Config.API_BASE_URL;

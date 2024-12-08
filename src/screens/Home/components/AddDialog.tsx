@@ -11,12 +11,10 @@ import {COLORS} from "../../../constants/colors";
 import {toDosStore} from "../../../stores";
 import BackDrop from "./BackDrop";
 
-type ToDos = {description: string; done: boolean; id: number};
-
 type Props = {
   bottomSheetModalRef: React.MutableRefObject<BottomSheetModalMethods | null>;
   closeModal: () => void;
-  setTodos: (val: ToDos[]) => void;
+  setTodos: () => void;
 };
 
 type FormData = {
@@ -35,10 +33,10 @@ export const AddDialog = ({
   });
 
   const onSubmit = async ({description}: {description: string}) => {
-    const data = await toDosStore.fetchTodos(description);
-
+    await toDosStore.fetchTodos(description);
     reset();
     closeModal();
+    setTodos();
   };
 
   return (

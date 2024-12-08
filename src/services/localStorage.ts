@@ -2,7 +2,6 @@ import {MMKV} from "react-native-mmkv";
 import {ResponseSignUp} from "../types/auth";
 import authStore from "../stores/AuthStore";
 import {MMKV_KEYS} from "../constants/storageKeys";
-import {set} from "mobx";
 
 const MMKVstorage = new MMKV();
 

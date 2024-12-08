@@ -1,5 +1,4 @@
 import {StyleSheet} from "react-native";
-import {windowWidth} from "../../helpers";
 import {COLORS} from "../../constants/colors";
 
 export const styles = StyleSheet.create({

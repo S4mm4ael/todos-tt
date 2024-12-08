@@ -11,17 +11,23 @@ const styles = StyleSheet.create({
   flex: {
     flex: 1,
   },
-  floatingBtn: {
+  buttonContainer: {
     position: "absolute",
     borderWidth: 1,
+    width: 80,
+    height: 80,
+    backgroundColor: COLORS.LIGHT,
     borderColor: COLORS.PRIMARY,
-    width: 60,
-    height: 60,
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 15,
-    bottom: 20,
-    right: 20,
+    borderRadius: 20,
+    bottom: 10,
+    right: 10,
+  },
+  contentContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
   bottomSheet: {
     justifyContent: "flex-start",
@@ -57,6 +63,15 @@ const styles = StyleSheet.create({
   input: {
     width: windowWidth - 32,
     marginBottom: 24,
+  },
+  emptyComponent: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  emptyComponentText: {
+    fontSize: 16,
+    lineHeight: 20,
   },
 });
 
