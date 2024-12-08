@@ -1,6 +1,6 @@
 import React from "react";
 import {BottomSheetBackdropProps} from "@gorhom/bottom-sheet";
-import {Pressable, StyleSheet} from "react-native";
+import {Pressable} from "react-native";
 import styles from "./styles";
 
 interface BackDropProps extends BottomSheetBackdropProps {
