@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  View,
-  Text,
-  Pressable,
-  KeyboardAvoidingView,
-  Platform,
-} from "react-native";
+import {View, Text, Pressable, KeyboardAvoidingView} from "react-native";
 import {observer} from "mobx-react-lite";
 import {useForm} from "react-hook-form";
 import authStore from "../../stores/AuthStore";
@@ -20,6 +14,7 @@ import {styles} from "./styles";
 import {BaseButton} from "../../components/Buttons";
 import {inputFields} from "./fields";
 import {getLocalUser} from "../../services/localStorage";
+import {isIOS} from "../../helpers";
 
 interface FormData {
   email: string;
@@ -35,7 +30,7 @@ const Login: React.FC = observer(() => {
     reset,
     formState: {isValid},
   } = useForm<FormData>({
-    defaultValues: {email: "jh@gg.com", password: "12345612!"},
+    defaultValues: {email: "", password: ""},
     mode: "onChange",
   });
 
@@ -52,9 +47,7 @@ const Login: React.FC = observer(() => {
 
   return (
     <SafeAreaView>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-      >
+      <KeyboardAvoidingView behavior={isIOS ? "padding" : "height"}>
         <View style={styles.container}>
           <View style={styles.logoContainer}>
             <AppMainLogo />

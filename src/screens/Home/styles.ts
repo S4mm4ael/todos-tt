@@ -32,7 +32,6 @@ const styles = StyleSheet.create({
   bottomSheet: {
     justifyContent: "flex-start",
     alignItems: "center",
-    gap: 54,
   },
   modalBody: {
     gap: 20,

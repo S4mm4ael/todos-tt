@@ -9,7 +9,7 @@ interface Props extends SvgProps {
 
 export const ExclamationPointIcon = ({
   color = COLORS.DANGER,
-  size = 14,
+  size = 16,
   ...rest
 }: Props) => (
   <Svg width={size} height={size} viewBox="0 0 14 14" fill="none" {...rest}>

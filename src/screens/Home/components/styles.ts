@@ -1,15 +1,18 @@
 import {StyleSheet} from "react-native";
 import {COLORS} from "../../../constants/colors";
-import {windowWidth} from "../../../helpers";
+import {windowWidth, normalize} from "../../../helpers";
 
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
-    width: windowWidth - 30,
-    padding: 10,
-    borderBottomWidth: 1,
+    width: windowWidth - normalize(16),
+    padding: normalize(6),
+    borderBottomWidth: normalize(1),
     borderBottomColor: COLORS.LIGHT,
+  },
+  avoidContainer: {
+    flex: 1,
   },
   leftContainer: {
     flex: 1,
@@ -17,26 +20,26 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   title: {
-    fontSize: 18,
-    marginLeft: 10,
-    paddingRight: 10,
+    fontSize: normalize(6),
+    marginLeft: normalize(6),
+    paddingRight: normalize(6),
   },
   completedTitle: {
     textDecorationLine: "line-through",
     color: COLORS.INFO,
   },
   textInput: {
-    fontSize: 18,
-    marginLeft: 10,
     flex: 1,
     borderBottomWidth: 1,
-    borderBottomColor: COLORS.LIGHT,
+    fontSize: normalize(6),
+    marginLeft: normalize(4),
+    borderBottomColor: COLORS.LIGHT_GRAY,
   },
   editButton: {
-    padding: 10,
+    padding: normalize(4),
   },
   controlPanel: {
-    gap: 10,
+    gap: normalize(4),
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
@@ -46,36 +49,41 @@ const styles = StyleSheet.create({
   bottomSheet: {
     justifyContent: "flex-start",
     alignItems: "center",
-    gap: 54,
+    gap: normalize(4),
   },
   modalBody: {
     alignSelf: "center",
   },
   modalTitle: {
-    fontSize: 16,
-    lineHeight: 20,
+    fontSize: normalize(12),
+    lineHeight: normalize(12),
     textAlign: "center",
-    paddingBottom: 40,
+    paddingVertical: normalize(8),
+    fontWeight: "bold",
   },
   question: {
-    fontSize: 16,
-    lineHeight: 20,
-    paddingHorizontal: 40,
+    fontSize: normalize(8),
+    lineHeight: normalize(8),
     textAlign: "center",
   },
   info: {
-    fontSize: 14,
-    lineHeight: 16.8,
+    fontSize: normalize(8),
+    lineHeight: normalize(8),
     textAlign: "center",
   },
   button: {
     backgroundColor: COLORS.PRIMARY,
     borderWidth: 0,
-    minWidth: 256,
-    marginBottom: 20,
+    minWidth: normalize(100),
+    marginBottom: normalize(10),
+  },
+  deleteButton: {
+    backgroundColor: COLORS.DANGER,
+    borderWidth: 0,
+    minWidth: normalize(100),
   },
   input: {
-    width: windowWidth - 32,
+    width: windowWidth - normalize(20),
   },
 });
 

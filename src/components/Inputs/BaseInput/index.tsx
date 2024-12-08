@@ -2,10 +2,11 @@ import React, {ForwardedRef, useState} from "react";
 import {View, TextInput, TouchableOpacity, Pressable, Text} from "react-native";
 
 import {InputProps} from "../interfaces";
-import {styles} from "./styles";
+import styles from "./styles";
 import {COLORS} from "../../../constants/colors";
 import {ClosedEyeIcon, OpenedEyeIcon} from "../../../assets/svg";
 import {ValidationWarning} from "../../ValidationWarning";
+import {normalize} from "../../../helpers";
 
 const Input = React.forwardRef(
   (props: InputProps, ref: ForwardedRef<TextInput>) => {
@@ -64,7 +65,7 @@ const Input = React.forwardRef(
               Icon ? styles.inputLefPadding : {},
               isPasswordField ? styles.inputRightPadding : {},
               rest.style,
-              {paddingRight: EndIcon ? 40 : 0},
+              {paddingRight: EndIcon ? normalize(20) : 0},
             ]}
           />
           {bottomInfo && <Text style={styles.bottomInfo}>{bottomInfo}</Text>}
@@ -78,9 +79,9 @@ const Input = React.forwardRef(
           ) : null}
           {isPasswordField ? (
             <TouchableOpacity
-              hitSlop={16}
+              hitSlop={12}
               onPress={toggleSecureTextEntry}
-              activeOpacity={0.8}
+              activeOpacity={0.7}
               style={styles.eye}
             >
               {secureTextEntry ? <OpenedEyeIcon /> : <ClosedEyeIcon />}

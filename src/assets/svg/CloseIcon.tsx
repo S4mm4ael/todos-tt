@@ -5,7 +5,7 @@ interface Props extends SvgProps {
   color?: COLORS | string;
 }
 export const CloseIcon = ({color = COLORS.BLACK, ...rest}: Props) => (
-  <Svg width={16} height={16} viewBox="0 0 16 16" fill="none" {...rest}>
+  <Svg width={20} height={20} viewBox="0 0 16 16" fill="none" {...rest}>
     <Path
       fill={color}
       fillRule="evenodd"

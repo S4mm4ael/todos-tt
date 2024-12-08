@@ -1,7 +1,8 @@
 import React from "react";
-import {StyleSheet, TouchableOpacity} from "react-native";
+import {TouchableOpacity} from "react-native";
 import {HeaderOptionsProps} from "../../../navigation/schemas";
 import {ArrowIcon} from "../../../assets/svg";
+import styles from "./style";
 
 const BackButton = ({navigation}: HeaderOptionsProps) =>
   navigation.canGoBack() ? (
@@ -14,9 +15,3 @@ const BackButton = ({navigation}: HeaderOptionsProps) =>
   ) : null;
 
 export default BackButton;
-
-const styles = StyleSheet.create({
-  container: {
-    marginLeft: 16,
-  },
-});

@@ -69,20 +69,17 @@ class AuthStore {
 
     try {
       const response = await axios.post(API.REGISTER, body);
-      console.log("response", response);
       runInAction(() => {
         this.user = response.data;
         this.loading = false;
       });
       saveLocalUser(email, response.data);
     } catch (error) {
-      console.log("error", (error as any).response);
       this.errorObject = (error as any).response?.data || "Registration failed";
       runInAction(() => {
         this.loading = false;
       });
     } finally {
-      console.log("finally", this.user);
       runInAction(() => {
         this.loading = false;
       });
@@ -100,7 +97,6 @@ class AuthStore {
 
     try {
       const response = await axios.post(API.LOGIN, body);
-      console.log("TOKENS", response.data);
       setAccessToken(response.data.access);
       setRefreshToken(response.data.refresh);
       this.isLogged = true;

@@ -43,7 +43,6 @@ class ToDosStore {
 
   get getError() {
     if (this.error) {
-      console.log("error", this.error.description[0]);
       return this.error.description[0];
     }
   }
@@ -114,7 +113,6 @@ class ToDosStore {
   async deleteToDo(id: number) {
     this.loading = true;
     this.error = null;
-    console.log("id", id);
     try {
       await axios.delete(`${API.TODOS}${id}`);
       runInAction(() => {

@@ -1,41 +1,37 @@
 import {StyleSheet} from "react-native";
 import {COLORS} from "../../constants/colors";
+import {normalize} from "../../helpers";
 
 const styles = StyleSheet.create({
   logoContainer: {
     justifyContent: "center",
     alignItems: "center",
     gap: 8,
-    marginBottom: 80,
-  },
-  logoTitle: {
-    fontSize: 27,
-    lineHeight: 38,
-    color: COLORS.BLACK,
+    marginBottom: normalize(20),
   },
   container: {
-    paddingTop: 40,
+    paddingTop: normalize(20),
     justifyContent: "center",
     alignItems: "center",
   },
   input: {
-    marginBottom: 24,
+    marginBottom: normalize(8),
   },
   signUpBlock: {
     flexDirection: "row",
-    gap: 10,
-    marginTop: 20,
+    gap: normalize(6),
+    marginTop: normalize(8),
   },
   signUpBtn: {
-    fontSize: 14,
+    fontSize: normalize(6),
     color: COLORS.PRIMARY,
   },
   textHelper: {
-    fontSize: 14,
+    fontSize: normalize(6),
     color: COLORS.BLACK,
   },
   errorContainer: {
-    marginBottom: 16,
+    marginBottom: normalize(10),
   },
 });
 export {styles};

@@ -35,17 +35,11 @@ axios.interceptors.request.use(
       config.headers.Authorization = `Bearer ${token}`;
       config.headers.Accept = "application/json";
     }
-    console.log("Request:", {
-      fullUrl: `${config.baseURL}${config.url}`,
-      url: config.url,
-      method: config.method,
-      headers: config.headers,
-      data: config.data,
-    });
+
     return config;
   },
   (error) => {
-    console.warn("Error", error);
+    // console.warn("Error", error);
     throw error;
   }
 );
@@ -57,7 +51,7 @@ export const refreshTokenRequest = async (refresh: string) => {
     });
     return res.data.access;
   } catch (e) {
-    console.log(e);
+    // console.warn("Error", error);
   }
 };
 
@@ -74,26 +68,10 @@ async function refreshToken() {
 
 axios.interceptors.response.use(
   (response) => {
-    console.log("Response:", {
-      url: response.config.url,
-      method: response.config.method,
-      headers: response.config.headers,
-      data: response.config.data,
-      status: response.status,
-      response: response.data,
-    });
     return response;
   },
   async (error) => {
     const originalRequest = error.config;
-    console.warn("Response Error:", {
-      url: originalRequest.url,
-      method: originalRequest.method,
-      headers: originalRequest.headers,
-      data: originalRequest.data,
-      status: error.response?.status,
-      response: error.response?.data,
-    });
     if (error.response.status === 401 && !originalRequest._retry) {
       authStore.logout();
       setAccessToken("");
@@ -102,7 +80,6 @@ axios.interceptors.response.use(
         const newAccessToken = await refreshToken();
         originalRequest.headers.Authorization = `${newAccessToken}`;
       } catch (e) {
-        console.warn("Error update token", e);
         setAccessToken("");
         return Promise.reject(e);
       }
