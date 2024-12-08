@@ -2,7 +2,7 @@ import {BottomSheetModal, BottomSheetView} from "@gorhom/bottom-sheet";
 import {BottomSheetModalMethods} from "@gorhom/bottom-sheet/lib/typescript/types";
 import React from "react";
 import {Text} from "react-native";
-import styles from "../styles";
+import styles from "./styles";
 import {BoxedContainer} from "../../../components/Containers";
 import {BaseButton} from "../../../components/Buttons";
 import {COLORS} from "../../../constants/colors";
@@ -22,6 +22,7 @@ export const DeleteDialog = ({
   bottomSheetModalRef,
   closeModal,
   deleteNote,
+  id,
 }: DeleteDialogProps) => {
   return (
     <BottomSheetModal
@@ -41,7 +42,7 @@ export const DeleteDialog = ({
         </BoxedContainer>
         <BaseButton
           title={"Delete"}
-          onPress={deleteNote}
+          onPress={() => deleteNote(id)}
           containerStyle={styles.button}
           textStyle={{color: COLORS.WHITE}}
         />

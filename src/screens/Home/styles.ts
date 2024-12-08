@@ -25,8 +25,8 @@ const styles = StyleSheet.create({
     right: 10,
   },
   contentContainer: {
-    flex: 1,
-    justifyContent: "center",
+    flexGrow: 1,
+    justifyContent: "flex-start",
     alignItems: "center",
   },
   bottomSheet: {

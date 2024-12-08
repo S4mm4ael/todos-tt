@@ -48,7 +48,6 @@ const styles = StyleSheet.create({
     gap: 54,
   },
   modalBody: {
-    gap: 20,
     alignSelf: "center",
   },
   modalTitle: {
@@ -76,7 +75,6 @@ const styles = StyleSheet.create({
   },
   input: {
     width: windowWidth - 32,
-    marginBottom: 24,
   },
 });
 

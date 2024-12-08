@@ -39,13 +39,18 @@ export const AddDialog = observer(
       setTodos();
     };
 
+    const BackDropOnPress = () => {
+      closeModal();
+      toDosStore.clearErrors();
+    };
+
     return (
       <BottomSheetModal
         ref={bottomSheetModalRef}
         index={0}
         snapPoints={SNAP_POINTS}
         backdropComponent={(props) => (
-          <BackDrop {...props} onPress={closeModal} />
+          <BackDrop {...props} onPress={BackDropOnPress} />
         )}
       >
         <BottomSheetView style={styles.bottomSheet}>

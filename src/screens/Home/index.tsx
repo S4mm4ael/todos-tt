@@ -1,13 +1,7 @@
 import React from "react";
 import {BottomSheetModal} from "@gorhom/bottom-sheet";
 import {useCallback, useEffect, useRef} from "react";
-import {
-  FlatList,
-  SafeAreaView,
-  TouchableOpacity,
-  Text,
-  ScrollView,
-} from "react-native";
+import {FlatList, SafeAreaView, TouchableOpacity, Text} from "react-native";
 import {observer} from "mobx-react-lite";
 import styles from "./styles";
 import {COLORS} from "../../constants/colors";
@@ -47,40 +41,41 @@ const Home = observer(() => {
     getTodos();
   }, []);
 
-  const deleteNote = async (selectedId: number) => {
-    if (selectedId) {
-      await toDosStore.deleteToDo(selectedId);
+  const deleteNote = async () => {
+    const activeId = toDosStore.activeToDoId;
+    console.log("selectedId", activeId);
+    if (activeId) {
+      await toDosStore.deleteToDo(activeId);
       DeleteDialogRef.current?.close();
+      toDosStore.getTodos();
     }
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView>
-        <BoxedContainer style={styles.flex}>
-          <FlatList
-            data={toDosStore.todosStored}
-            renderItem={({item}) => (
-              <ToDoItem
-                id={item.id}
-                description={item.description}
-                done={item.done}
-                openDeleteModal={openDeleteModal}
-                deleteNote={deleteNote}
-                bottomSheetDeleteModalRef={DeleteDialogRef}
-              />
-            )}
-            contentContainerStyle={styles.contentContainer}
-            keyExtractor={(item) => item.id.toString()}
-            showsHorizontalScrollIndicator={false}
-            ListEmptyComponent={ListEmptyComponent}
-          />
-        </BoxedContainer>
-      </ScrollView>
+      <BoxedContainer style={styles.flex}>
+        <FlatList
+          data={toDosStore.todosStored.slice().sort((a, b) => a.id - b.id)}
+          renderItem={({item}) => (
+            <ToDoItem
+              id={item.id}
+              description={item.description}
+              done={item.done}
+              openDeleteModal={openDeleteModal}
+              deleteNote={deleteNote}
+              bottomSheetDeleteModalRef={DeleteDialogRef}
+            />
+          )}
+          contentContainerStyle={styles.contentContainer}
+          keyExtractor={(item) => item.id.toString()}
+          showsHorizontalScrollIndicator={false}
+          ListEmptyComponent={ListEmptyComponent}
+          scrollEnabled={true}
+        />
+      </BoxedContainer>
       <TouchableOpacity onPress={openModal} style={styles.buttonContainer}>
         <PlusIcon color={COLORS.PRIMARY} />
       </TouchableOpacity>
-
       <AddDialog
         bottomSheetModalRef={AddDialogRef}
         closeModal={closeModal}

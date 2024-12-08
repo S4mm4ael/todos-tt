@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from "react";
+import React, {useCallback, useState, Dispatch, SetStateAction} from "react";
 import {View, Text, TouchableOpacity, TextInput} from "react-native";
 import styles from "./styles";
 import CheckBox from "@react-native-community/checkbox";
@@ -46,6 +46,8 @@ export const ToDoItem: React.FC<ToDoListItemProps> = ({
   };
 
   const deleteToDos = () => {
+    toDosStore.setActiveToDoId(id);
+    console.log("id", toDosStore.activeToDoId);
     openDeleteModal();
   };
 
@@ -91,7 +93,7 @@ export const ToDoItem: React.FC<ToDoListItemProps> = ({
         description={description}
         bottomSheetModalRef={bottomSheetDeleteModalRef}
         closeModal={closeDeleteModal}
-        deleteNote={() => deleteNote(id)}
+        deleteNote={deleteNote}
         id={id}
       />
     </View>

@@ -16,8 +16,9 @@ configure({
 
 class ToDosStore {
   todos: ToDo[] = [];
+  activeToDoId: number | null = null;
   loading = false;
-  error = null;
+  error: {description: string[]} | null = null;
 
   constructor() {
     makeAutoObservable(this, {
@@ -128,6 +129,10 @@ class ToDosStore {
         this.loading = false;
       });
     }
+  }
+
+  setActiveToDoId(id: number) {
+    this.activeToDoId = id;
   }
 
   clearErrors() {
