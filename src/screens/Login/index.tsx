@@ -12,12 +12,12 @@ import authStore from "../../stores/AuthStore";
 import {ROUTES} from "../../constants/routes";
 import {useNavigation} from "@react-navigation/native";
 import {SafeAreaView} from "react-native-safe-area-context";
-import {ControlledInput} from "../../components/Inputs/ControlledInput";
+import {ControlledInput} from "../../components/Inputs";
 import {ValidationWarning} from "../../components/ValidationWarning";
-import {BoxedContainer} from "../../components/Containers/BoxedContainer";
+import {BoxedContainer} from "../../components/Containers";
 import {AppMainLogo} from "../../assets/svg";
 import {styles} from "./styles";
-import {BaseButton} from "../../components/Buttons/BaseButton";
+import {BaseButton} from "../../components/Buttons";
 import {inputFields} from "./fields";
 import {getLocalUser} from "../../services/localStorage";
 
@@ -35,7 +35,7 @@ const Login: React.FC = observer(() => {
     reset,
     formState: {isValid},
   } = useForm<FormData>({
-    defaultValues: {email: "", password: ""},
+    defaultValues: {email: "jh@gg.com", password: "12345612!"},
     mode: "onChange",
   });
 

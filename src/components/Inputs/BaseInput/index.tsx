@@ -7,7 +7,7 @@ import {COLORS} from "../../../constants/colors";
 import {ClosedEyeIcon, OpenedEyeIcon} from "../../../assets/svg";
 import {ValidationWarning} from "../../ValidationWarning";
 
-export const Input = React.forwardRef(
+const Input = React.forwardRef(
   (props: InputProps, ref: ForwardedRef<TextInput>) => {
     const {
       containerStyle,
@@ -101,3 +101,5 @@ export const Input = React.forwardRef(
     );
   }
 );
+
+export default Input;

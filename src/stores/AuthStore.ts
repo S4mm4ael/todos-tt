@@ -1,16 +1,17 @@
-// src/stores/AuthStore.ts
 import {
   makeAutoObservable,
   action,
   runInAction,
   configure,
   computed,
+  set,
 } from "mobx";
 import {axios} from "../services/axiosConfig";
 import {API} from "./constants";
 import {EmailRegister, EmailSignIn, ErrorRegisterObject} from "./types";
-import {MMKVstorage, saveLocalUser} from "../services/localStorage";
+import {saveLocalUser} from "../services/localStorage";
 import {ResponseSignUp} from "../types/auth";
+import {setAccessToken, setRefreshToken} from "../services/localStorage";
 
 configure({
   enforceActions: "never",
@@ -18,6 +19,7 @@ configure({
 
 class AuthStore {
   user = null as ResponseSignUp | null;
+  isLogged = false;
   loading = false;
   error = null;
   errorObject = null;
@@ -32,7 +34,7 @@ class AuthStore {
   }
 
   get isLoggedIn() {
-    return this.user !== null;
+    return this.isLogged;
   }
 
   get getUser() {
@@ -98,7 +100,10 @@ class AuthStore {
 
     try {
       const response = await axios.post(API.LOGIN, body);
-      this.user = response.data;
+      console.log("TOKENS", response.data);
+      setAccessToken(response.data.access);
+      setRefreshToken(response.data.refresh);
+      this.isLogged = true;
       runInAction(() => {
         this.loading = false;
       });
@@ -119,7 +124,7 @@ class AuthStore {
   }
 
   logout() {
-    this.user = null;
+    this.isLogged = false;
   }
 
   clearErrors() {

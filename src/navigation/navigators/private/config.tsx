@@ -14,49 +14,34 @@ export const tabNavigatorOptions = ({
   route,
 }: TabBarOptionsProps): BottomTabNavigationOptions => ({
   headerShown: false,
-  tabBarShowLabel: false,
-  tabBarActiveTintColor: "black",
-  tabBarInactiveTintColor: "black",
+  tabBarShowLabel: true,
+  tabBarActiveTintColor: COLORS.PRIMARY,
+  tabBarInactiveTintColor: COLORS.LIGHT_GRAY,
   tabBarStyle: {
-    height: 78,
+    height: 60,
     justifyContent: "center",
     alignItems: "center",
     borderTopWidth: 0,
     elevation: 0,
+    backgroundColor: COLORS.WHITE,
   },
   tabBarIcon: ({focused}) => {
     const {Icon} = getTabBarIcon(route);
+    return <Icon color={focused ? COLORS.PRIMARY : COLORS.BLACK} />;
+  },
+  tabBarLabel: ({focused}) => {
+    const label = tabBarName[route?.name || ("" as keyof typeof tabBarName)];
     return (
-      <IconWrapper route={route} focused={focused}>
-        <Icon color={focused ? COLORS.PRIMARY : COLORS.BLACK} />
-      </IconWrapper>
+      <Text style={{color: focused ? COLORS.PRIMARY : COLORS.LIGHT_GRAY}}>
+        {label}
+      </Text>
     );
   },
 });
 
-interface IconWrapperProps extends ViewProps {
-  route?: RouteProp<BottomTabNavigatorParamList>;
-  focused: boolean;
-}
-
-const IconWrapper = ({route, children, focused}: IconWrapperProps) => (
-  <>
-    {children}
-    <Text
-      style={[
-        styles.tabBarLabel,
-        {color: focused ? COLORS.PRIMARY : COLORS.BLACK},
-      ]}
-    >
-      {route ? tabBarName[route.name] : ""}
-    </Text>
-  </>
-);
-
 const styles = StyleSheet.create({
   tabBarLabel: {
-    fontSize: 10,
-    lineHeight: 10,
-    marginTop: 4,
+    fontSize: 12,
+    textAlign: "center",
   },
 });

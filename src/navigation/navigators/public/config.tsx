@@ -1,5 +1,5 @@
 import React from "react";
-import BackButton from "../../../components/Buttons/BackButton";
+import {BackButton} from "../../../components/Buttons";
 import {HeaderOptionsProps} from "../../schemas";
 
 export const headerOptions = ({navigation}: HeaderOptionsProps) => ({

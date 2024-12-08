@@ -1,26 +1,58 @@
 import React from "react";
-import {View, Text, StyleSheet, Button} from "react-native";
+import {Text, View, SafeAreaView} from "react-native";
+import {BoxedContainer} from "../../components/Containers";
+import {BaseButton} from "../../components/Buttons";
+import {MMKVstorage} from "../../services/localStorage";
+import {MMKV_KEYS} from "../../constants/storageKeys";
+import {styles} from "./styles";
+import {observer} from "mobx-react-lite";
+import authStore from "../../stores/AuthStore";
+import {ResponseSignUp} from "../../types/auth";
+import {AccountIcon} from "../../assets/svg";
 
-const AccountScreen: React.FC = ({navigation}) => {
+export const Account = observer(() => {
+  const {
+    email = "No data",
+    first_name = "No data",
+    last_name = "No data",
+  } = authStore.getUser || ({} as ResponseSignUp);
+
+  const LogOut = () => {
+    MMKVstorage.set(MMKV_KEYS.ACCESS_TOKEN, "");
+    authStore.logout();
+  };
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Account Screen</Text>
-      <Button title="Go to Home" onPress={() => navigation.navigate("Home")} />
-    </View>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.titleContainer}>
+        <AccountIcon />
+        <Text style={styles.title}>Account Information</Text>
+      </View>
+      <View style={styles.infoContainer}>
+        <View style={styles.row}>
+          <Text style={styles.label}>First Name:</Text>
+          <Text style={styles.value}>{first_name}</Text>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.label}>Last Name:</Text>
+          <Text style={styles.value}>{last_name}</Text>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.label}>Email:</Text>
+          <Text style={styles.value}>{email}</Text>
+        </View>
+      </View>
+      <View style={{flex: 1}} />
+      <BoxedContainer>
+        <BaseButton
+          title="Log out"
+          onPress={LogOut}
+          containerStyle={styles.logoutBtn}
+        />
+      </BoxedContainer>
+    </SafeAreaView>
   );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#fff",
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-  },
 });
 
-export default AccountScreen;
+export {styles};
+export default Account;

@@ -1,11 +1,11 @@
 import React, {useEffect} from "react";
-import {View, Text, KeyboardTypeOptions} from "react-native";
+import {View, Text} from "react-native";
 import {AppMainLogo} from "../../assets/svg";
-import {ControlledInput} from "../../components/Inputs/ControlledInput";
+import {ControlledInput} from "../../components/Inputs";
 import {useForm} from "react-hook-form";
 import {styles} from "./styles";
-import {BoxedContainer} from "../../components/Containers/BoxedContainer";
-import {BaseButton} from "../../components/Buttons/BaseButton";
+import {BoxedContainer} from "../../components/Containers";
+import {BaseButton} from "../../components/Buttons";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 import {SafeAreaView} from "react-native-safe-area-context";
 import authStore from "../../stores/AuthStore";
