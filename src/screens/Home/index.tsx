@@ -77,7 +77,7 @@ const Home = observer(() => {
         />
       </BoxedContainer>
       <TouchableOpacity onPress={openModal} style={styles.buttonContainer}>
-        <PlusIcon color={COLORS.PRIMARY} />
+        <PlusIcon color={COLORS.WHITE} />
       </TouchableOpacity>
       <AddDialog
         bottomSheetModalRef={AddDialogRef}

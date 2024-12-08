@@ -28,23 +28,6 @@ export const ToDoItem: React.FC<ToDoListItemProps> = ({
   const [newTitle, setNewTitle] = useState(description);
   const [todoDone, setTodoDone] = useState(done);
 
-  const editToDos = async () => {
-    await toDosStore.editToDo({
-      id,
-      description: newTitle,
-      done: todoDone,
-    });
-  };
-
-  const handleSaveTitle = () => {
-    setIsEditing(false);
-  };
-
-  const editText = () => {
-    editToDos();
-    setIsEditing(!isEditing);
-  };
-
   const deleteToDos = () => {
     toDosStore.setActiveToDoId(id);
     openDeleteModal();
@@ -58,6 +41,19 @@ export const ToDoItem: React.FC<ToDoListItemProps> = ({
     const newStatus = !todoDone;
     setTodoDone(newStatus);
     await toDosStore.editToDo({id, description, done: newStatus});
+  };
+
+  const handleSaveTitle = () => {
+    setIsEditing(false);
+    saveEditedText();
+  };
+
+  const saveEditedText = () => {
+    toDosStore.editToDo({
+      id,
+      description: newTitle,
+      done: todoDone,
+    });
   };
 
   return (
@@ -85,7 +81,10 @@ export const ToDoItem: React.FC<ToDoListItemProps> = ({
         )}
       </View>
       <View style={styles.controlPanel}>
-        <TouchableOpacity onPress={editText} style={styles.editButton}>
+        <TouchableOpacity
+          onPress={() => setIsEditing(true)}
+          style={styles.editButton}
+        >
           <PencilIcon color={COLORS.INFO} />
         </TouchableOpacity>
         <TouchableOpacity onPress={deleteToDos}>
