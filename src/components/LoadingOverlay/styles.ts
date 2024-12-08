@@ -1,5 +1,6 @@
 import {StyleSheet} from "react-native";
 import {COLORS} from "../../constants/colors";
+import {normalize} from "../../helpers";
 
 const styles = StyleSheet.create({
   modalBackground: {
@@ -11,9 +12,9 @@ const styles = StyleSheet.create({
   },
   activityIndicatorWrapper: {
     backgroundColor: COLORS.WHITE,
-    height: 100,
-    width: 100,
-    borderRadius: 10,
+    height: normalize(100),
+    width: normalize(100),
+    borderRadius: normalize(10),
     display: "flex",
     alignItems: "center",
     justifyContent: "center",

@@ -1,9 +1,8 @@
 import React from "react";
 import {View} from "react-native";
-
 import {ActivityIndicator, TouchableOpacity, Text} from "react-native";
 import {BaseButtonProps, BUTTON_TYPE} from "./interfaces";
-import {styles} from "./styles";
+import styles from "./styles";
 import {COLORS} from "../../../constants/colors";
 
 const BaseButton = ({

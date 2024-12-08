@@ -1,5 +1,6 @@
 import {StyleSheet} from "react-native";
 import {COLORS} from "../../../constants/colors";
+import {normalize} from "../../../helpers";
 
 const styles = StyleSheet.create({
   container: {
@@ -7,10 +8,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     alignContent: "center",
-    borderWidth: 1,
-    height: 48,
-    paddingHorizontal: 24,
-    borderRadius: 10,
+    borderWidth: normalize(1),
+    height: normalize(20),
+    paddingHorizontal: normalize(2),
+    borderRadius: normalize(10),
   },
   primary: {
     backgroundColor: COLORS.PRIMARY,
@@ -26,26 +27,24 @@ const styles = StyleSheet.create({
   },
   link: {
     height: "auto",
-    borderWidth: 0,
-    paddingHorizontal: 0,
     justifyContent: "flex-start",
     alignSelf: "baseline",
   },
   text: {
+    fontSize: normalize(10),
     color: COLORS.WHITE,
-    fontSize: 16,
   },
   textLink: {
     color: COLORS.PRIMARY,
-    fontSize: 14,
+    fontSize: normalize(14),
   },
   icon: {
-    marginRight: 8,
+    marginRight: normalize(8),
   },
   endIcon: {
-    marginLeft: 16,
-    paddingBottom: 5,
+    marginLeft: normalize(16),
+    paddingBottom: normalize(5),
   },
 });
 
-export {styles};
+export default styles;

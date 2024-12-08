@@ -1,9 +1,15 @@
 import * as React from "react";
 import Svg, {Path, Rect, SvgProps} from "react-native-svg";
 import {COLORS} from "../../constants/colors";
+import {normalize} from "../../helpers";
 
 export const AppMainLogo = (props: SvgProps) => (
-  <Svg viewBox="0 0 100 100" width="100" height="100" {...props}>
+  <Svg
+    viewBox="0 0 100 100"
+    width={normalize(50)}
+    height={normalize(50)}
+    {...props}
+  >
     <Rect
       x="0"
       y="0"

@@ -1,20 +1,21 @@
 import {StyleSheet} from "react-native";
+import {normalize} from "../../../helpers";
 
 const styles = StyleSheet.create({
   container: {
     alignSelf: "stretch",
   },
   small: {
-    marginHorizontal: 10,
+    marginHorizontal: normalize(6),
   },
   large: {
-    marginHorizontal: 16,
+    marginHorizontal: normalize(10),
   },
   usual: {
-    marginHorizontal: 24,
+    marginHorizontal: normalize(12),
   },
   narrow: {
-    marginHorizontal: 48,
+    marginHorizontal: normalize(30),
   },
 });
 

@@ -1,55 +1,56 @@
 import {StyleSheet} from "react-native";
 import {COLORS} from "../../../constants/colors";
+import {normalize} from "../../../helpers";
 
 const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
   },
   label: {
-    fontSize: 14,
-    lineHeight: 20,
-    marginBottom: 8,
+    fontSize: normalize(6),
+    lineHeight: normalize(6),
+    marginBottom: normalize(2),
   },
   input: {
-    height: 48,
+    height: normalize(20),
     backgroundColor: COLORS.WHITE,
-    fontSize: 16,
-    paddingHorizontal: 16,
+    fontSize: normalize(6),
+    paddingHorizontal: normalize(4),
     color: COLORS.BLACK,
-    borderRadius: 8,
+    borderRadius: normalize(5),
   },
   inputSolid: {
     backgroundColor: COLORS.LIGHT,
     borderColor: COLORS.LIGHT,
   },
-  inputLefPadding: {
-    paddingLeft: 32,
+  inputLeftPadding: {
+    paddingLeft: normalize(12),
   },
   inputRightPadding: {
-    paddingRight: 48,
+    paddingRight: normalize(28),
   },
   inputError: {
     borderColor: COLORS.DANGER,
-    borderWidth: 3,
+    borderWidth: normalize(1),
   },
   icon: {
     position: "absolute",
-    left: 12,
+    left: normalize(5),
   },
   eye: {
     position: "absolute",
-    right: 16,
+    right: normalize(8),
   },
   textPosition: {
     flexDirection: "row",
     justifyContent: "space-between",
   },
   bottomInfo: {
-    fontSize: 12,
-    lineHeight: 14,
+    fontSize: normalize(8),
+    lineHeight: normalize(10),
     color: COLORS.BLACK,
-    paddingTop: 3,
+    paddingTop: normalize(3),
   },
 });
 
-export {styles};
+export default styles;
