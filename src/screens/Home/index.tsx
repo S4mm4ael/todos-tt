@@ -74,13 +74,13 @@ const Home = observer(() => {
             keyExtractor={(item) => item.id.toString()}
             showsHorizontalScrollIndicator={false}
             ListEmptyComponent={ListEmptyComponent}
-            scrollEnabled={true}
           />
         </BoxedContainer>
       </ScrollView>
       <TouchableOpacity onPress={openModal} style={styles.buttonContainer}>
         <PlusIcon color={COLORS.PRIMARY} />
       </TouchableOpacity>
+
       <AddDialog
         bottomSheetModalRef={AddDialogRef}
         closeModal={closeModal}

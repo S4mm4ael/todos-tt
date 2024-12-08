@@ -72,6 +72,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.PRIMARY,
     borderWidth: 0,
     minWidth: 256,
+    marginBottom: 20,
   },
   input: {
     width: windowWidth - 32,

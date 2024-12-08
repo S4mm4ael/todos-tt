@@ -28,6 +28,7 @@ class ToDosStore {
       clearErrors: action,
       todosStored: computed,
       todosCount: computed,
+      getError: computed,
     });
   }
 
@@ -37,6 +38,13 @@ class ToDosStore {
 
   get todosStored() {
     return this.todos;
+  }
+
+  get getError() {
+    if (this.error) {
+      console.log("error", this.error.description[0]);
+      return this.error.description[0];
+    }
   }
 
   async getTodos() {
