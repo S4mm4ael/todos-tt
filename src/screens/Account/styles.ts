@@ -20,6 +20,7 @@ export const styles = StyleSheet.create({
   },
   infoContainer: {
     marginBottom: normalize(10),
+    paddingHorizontal: normalize(6),
   },
   row: {
     flexDirection: "row",
@@ -36,5 +37,6 @@ export const styles = StyleSheet.create({
   logoutBtn: {
     backgroundColor: COLORS.DANGER,
     borderColor: COLORS.DANGER,
+    marginBottom: normalize(10),
   },
 });

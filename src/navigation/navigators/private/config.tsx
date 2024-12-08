@@ -1,10 +1,10 @@
 import React from "react";
-import {RouteProp} from "@react-navigation/native";
-import {StyleSheet, ViewProps, Text} from "react-native";
-import {BottomTabNavigatorParamList, TabBarOptionsProps} from "../../schemas";
+import {Text} from "react-native";
+import {TabBarOptionsProps} from "../../schemas";
 import {getTabBarIcon, tabBarName} from "../../utils";
 import {BottomTabNavigationOptions} from "@react-navigation/bottom-tabs";
 import {COLORS} from "../../../constants/colors";
+import {normalize, isIOS} from "../../../helpers";
 
 export const tabBarHeaderOptions = {
   headerShown: false,
@@ -18,11 +18,9 @@ export const tabNavigatorOptions = ({
   tabBarActiveTintColor: COLORS.PRIMARY,
   tabBarInactiveTintColor: COLORS.LIGHT_GRAY,
   tabBarStyle: {
-    height: 60,
+    height: isIOS ? normalize(40) : normalize(30),
     justifyContent: "center",
     alignItems: "center",
-    borderTopWidth: 0,
-    elevation: 0,
     backgroundColor: COLORS.WHITE,
   },
   tabBarIcon: ({focused}) => {
@@ -36,12 +34,5 @@ export const tabNavigatorOptions = ({
         {label}
       </Text>
     );
-  },
-});
-
-const styles = StyleSheet.create({
-  tabBarLabel: {
-    fontSize: 12,
-    textAlign: "center",
   },
 });
