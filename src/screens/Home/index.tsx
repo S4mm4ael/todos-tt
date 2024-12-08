@@ -37,10 +37,10 @@ const Home = observer(() => {
     DeleteDialogRef.current?.present();
   }, []);
 
+  const getTodos = async () => {
+    await toDosStore.getTodos();
+  };
   useEffect(() => {
-    const getTodos = async () => {
-      await toDosStore.getTodos();
-    };
     getTodos();
   }, []);
 
@@ -81,9 +81,7 @@ const Home = observer(() => {
       <AddDialog
         bottomSheetModalRef={AddDialogRef}
         closeModal={closeModal}
-        setTodos={() => {
-          toDosStore.getTodos();
-        }}
+        setTodos={getTodos}
       />
     </SafeAreaView>
   );

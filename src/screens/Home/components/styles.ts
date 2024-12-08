@@ -11,6 +11,9 @@ const styles = StyleSheet.create({
     borderBottomWidth: normalize(1),
     borderBottomColor: COLORS.LIGHT,
   },
+  avoidContainer: {
+    flex: 1,
+  },
   leftContainer: {
     flex: 1,
     flexDirection: "row",

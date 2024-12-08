@@ -1,7 +1,7 @@
 import React from "react";
 import {BottomSheetModal, BottomSheetView} from "@gorhom/bottom-sheet";
 import {BottomSheetModalMethods} from "@gorhom/bottom-sheet/lib/typescript/types";
-import {View, Text} from "react-native";
+import {View, Text, KeyboardAvoidingView} from "react-native";
 import {useForm} from "react-hook-form";
 import styles from "./styles";
 import {BoxedContainer} from "../../../components/Containers";
@@ -12,11 +12,12 @@ import {toDosStore} from "../../../stores";
 import BackDrop from "./BackDrop";
 import {observer} from "mobx-react-lite";
 import {ValidationWarning} from "../../../components/ValidationWarning";
+import {isIOS} from "../../../helpers";
 
 type Props = {
   bottomSheetModalRef: React.MutableRefObject<BottomSheetModalMethods | null>;
   closeModal: () => void;
-  setTodos: () => void;
+  setTodos: () => Promise<void>;
 };
 
 type FormData = {
@@ -34,14 +35,15 @@ export const AddDialog = observer(
     const onSubmit = async ({description}: {description: string}) => {
       await toDosStore.fetchTodos(description);
       if (toDosStore.getError) return;
-      reset();
-      closeModal();
-      setTodos();
+      setTodos().then(() => {
+        reset();
+        closeModal();
+      });
     };
 
     const BackDropOnPress = () => {
-      closeModal();
       toDosStore.clearErrors();
+      closeModal();
     };
 
     return (
@@ -53,29 +55,34 @@ export const AddDialog = observer(
           <BackDrop {...props} onPress={BackDropOnPress} />
         )}
       >
-        <BottomSheetView style={styles.bottomSheet}>
-          <BoxedContainer style={styles.modalBody}>
-            <Text style={styles.modalTitle}>{"Add a new note"}</Text>
-            <View>
-              <ControlledInput
-                control={control}
-                name="description"
-                placeholder={"Enter text here"}
-                variant="solid"
-                containerStyle={styles.input}
-              />
-            </View>
-            {toDosStore.getError && (
-              <ValidationWarning errorMessage={toDosStore.getError} />
-            )}
-          </BoxedContainer>
-          <BaseButton
-            title={"Add"}
-            onPress={handleSubmit(onSubmit)}
-            containerStyle={styles.button}
-            textStyle={{color: COLORS.WHITE}}
-          />
-        </BottomSheetView>
+        <KeyboardAvoidingView
+          behavior={isIOS ? "padding" : "height"}
+          style={styles.avoidContainer}
+        >
+          <BottomSheetView style={styles.bottomSheet}>
+            <BoxedContainer style={styles.modalBody}>
+              <Text style={styles.modalTitle}>{"Add a new note"}</Text>
+              <View>
+                <ControlledInput
+                  control={control}
+                  name="description"
+                  placeholder={"Enter text here"}
+                  variant="solid"
+                  containerStyle={styles.input}
+                />
+              </View>
+              {toDosStore.getError && (
+                <ValidationWarning errorMessage={toDosStore.getError} />
+              )}
+            </BoxedContainer>
+            <BaseButton
+              title={"Add"}
+              onPress={handleSubmit(onSubmit)}
+              containerStyle={styles.button}
+              textStyle={{color: COLORS.WHITE}}
+            />
+          </BottomSheetView>
+        </KeyboardAvoidingView>
       </BottomSheetModal>
     );
   }
