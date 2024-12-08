@@ -30,7 +30,7 @@ const Login: React.FC = observer(() => {
     reset,
     formState: {isValid},
   } = useForm<FormData>({
-    defaultValues: {email: "jh@gg.com", password: "12345612!"},
+    defaultValues: {email: "", password: ""},
     mode: "onChange",
   });
 
