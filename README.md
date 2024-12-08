@@ -4,6 +4,8 @@
 ![Simulator Screenshot - iPhone 12 - 18 - 2024-12-08 at 14 29 42](https://github.com/user-attachments/assets/913a970c-dc91-461d-beb5-8d37a97a9991)
 ![Simulator Screenshot - iPhone 12 - 18 - 2024-12-08 at 14 30 07](https://github.com/user-attachments/assets/fde93a90-98d0-49b8-92c4-a18e1b19eb9e)
 ![Simulator Screenshot - iPhone 12 - 18 - 2024-12-08 at 15 10 18](https://github.com/user-attachments/assets/507e55f3-23fb-4a2d-a913-0030125af31e)
+![Simulator Screenshot - iPhone 12 - 18 - 2024-12-08 at 15 51 54](https://github.com/user-attachments/assets/e35a7954-4439-4cd8-9768-06fef8e1a66a)
+
 
 
 ## Table of Contents
@@ -75,6 +77,7 @@ ToDoList is a React Native application that allows users to manage their to-do l
      # or if you use Yarn
      yarn ios
      ```
+3. **Create an .env file with API_BASE_URL in the root folder**
 
 ## Scripts
 
