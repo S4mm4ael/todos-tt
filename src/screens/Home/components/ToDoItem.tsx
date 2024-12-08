@@ -1,7 +1,7 @@
-import React, {useCallback, useState, Dispatch, SetStateAction} from "react";
+import React, {useCallback, useState} from "react";
 import {View, Text, TouchableOpacity, TextInput} from "react-native";
 import styles from "./styles";
-import CheckBox from "@react-native-community/checkbox";
+import CheckBox from "react-native-check-box";
 import {CloseIcon, PencilIcon} from "../../../assets/svg";
 import {COLORS} from "../../../constants/colors";
 import {toDosStore} from "../../../stores";
@@ -47,7 +47,6 @@ export const ToDoItem: React.FC<ToDoListItemProps> = ({
 
   const deleteToDos = () => {
     toDosStore.setActiveToDoId(id);
-    console.log("id", toDosStore.activeToDoId);
     openDeleteModal();
   };
 
@@ -55,15 +54,19 @@ export const ToDoItem: React.FC<ToDoListItemProps> = ({
     bottomSheetDeleteModalRef.current?.close();
   }, [bottomSheetDeleteModalRef]);
 
+  const onCheckBoxClick = async () => {
+    const newStatus = !todoDone;
+    setTodoDone(newStatus);
+    await toDosStore.editToDo({id, description, done: newStatus});
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.leftContainer}>
         <CheckBox
           value={done}
-          onValueChange={(val) => {
-            editToDos();
-            setTodoDone(val);
-          }}
+          onClick={onCheckBoxClick}
+          isChecked={todoDone}
           onCheckColor={COLORS.PRIMARY}
           onTintColor={COLORS.PRIMARY}
         />
@@ -83,10 +86,10 @@ export const ToDoItem: React.FC<ToDoListItemProps> = ({
       </View>
       <View style={styles.controlPanel}>
         <TouchableOpacity onPress={editText} style={styles.editButton}>
-          <PencilIcon />
+          <PencilIcon color={COLORS.INFO} />
         </TouchableOpacity>
         <TouchableOpacity onPress={deleteToDos}>
-          <CloseIcon color={COLORS.PRIMARY} />
+          <CloseIcon color={COLORS.DANGER} />
         </TouchableOpacity>
       </View>
       <DeleteDialog

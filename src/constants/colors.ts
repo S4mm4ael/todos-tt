@@ -12,4 +12,5 @@ export enum COLORS {
   YELLOW = "#FFEB3B",
   LIGHT_YELLOW = "#FFE082",
   LIGHT_GRAY = "#E0E0E0",
+  MODAL_BACKGROUND = "rgba(0, 0, 0, 0.5)",
 }

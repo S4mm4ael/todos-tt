@@ -19,6 +19,9 @@ const ListEmptyComponent = () => {
 };
 
 const Home = observer(() => {
+  const sortedTodos = toDosStore.todosStored
+    .slice()
+    .sort((a, b) => a.id - b.id);
   const DeleteDialogRef = useRef<BottomSheetModal>(null);
   const AddDialogRef = useRef<BottomSheetModal>(null);
 
@@ -55,7 +58,7 @@ const Home = observer(() => {
     <SafeAreaView style={styles.container}>
       <BoxedContainer style={styles.flex}>
         <FlatList
-          data={toDosStore.todosStored.slice().sort((a, b) => a.id - b.id)}
+          data={sortedTodos}
           renderItem={({item}) => (
             <ToDoItem
               id={item.id}
