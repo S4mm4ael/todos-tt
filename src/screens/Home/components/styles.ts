@@ -45,7 +45,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   backDropColor: {backgroundColor: COLORS.DARK},
-
   bottomSheet: {
     justifyContent: "flex-start",
     alignItems: "center",

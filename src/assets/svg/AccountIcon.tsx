@@ -1,13 +1,14 @@
 import * as React from "react";
 import Svg, {Path, SvgProps, G} from "react-native-svg";
 import {COLORS} from "../../constants/colors";
+import {normalize} from "../../helpers";
 
 interface Props extends SvgProps {
   color?: COLORS | string;
 }
 
 export const AccountIcon = ({color = COLORS.BLACK, ...rest}: Props) => (
-  <Svg width={30} height={30} viewBox="0 0 48 48">
+  <Svg width={normalize(15)} height={normalize(15)} viewBox="0 0 48 48">
     <Path d="M0 0h48v48H0z" fill="none" />
     <G id="Shopicon">
       <Path
