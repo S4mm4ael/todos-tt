@@ -1,7 +1,7 @@
 import React from "react";
 import {BottomSheetModal, BottomSheetView} from "@gorhom/bottom-sheet";
 import {BottomSheetModalMethods} from "@gorhom/bottom-sheet/lib/typescript/types";
-import {View, Text, KeyboardAvoidingView} from "react-native";
+import {View, Text, KeyboardAvoidingView, Keyboard} from "react-native";
 import {useForm} from "react-hook-form";
 import styles from "./styles";
 import {BoxedContainer} from "../../../components/Containers";
@@ -33,6 +33,7 @@ export const AddDialog = observer(
     });
 
     const onSubmit = async ({description}: {description: string}) => {
+      Keyboard.dismiss();
       await toDosStore.fetchTodos(description);
       if (toDosStore.getError) return;
       setTodos().then(() => {
