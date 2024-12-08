@@ -78,9 +78,8 @@ class ToDosStore {
         this.todos.push(response.data);
       });
     } catch (error) {
-      runInAction(() => {
-        this.error = (error as any).response?.data || "Error creating todo";
-      });
+      console.log(error);
+      this.error = (error as any).response?.data || "Error creating todo";
     } finally {
       runInAction(() => {
         this.loading = false;

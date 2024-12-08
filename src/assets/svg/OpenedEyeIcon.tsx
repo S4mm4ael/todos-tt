@@ -3,7 +3,7 @@ import Svg, {Path, SvgProps} from "react-native-svg";
 import {COLORS} from "../../constants/colors";
 
 export const OpenedEyeIcon = (props: SvgProps) => (
-  <Svg width={25} height={16} viewBox="0 0 21 13" fill="none" {...props}>
+  <Svg width={20} height={20} viewBox="0 0 21 13" fill="none" {...props}>
     <Path
       fill={props.color ?? COLORS.BLACK}
       fillRule="evenodd"
