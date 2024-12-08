@@ -43,7 +43,7 @@ export const DeleteDialog = ({
         <BaseButton
           title={"Delete"}
           onPress={() => deleteNote(id)}
-          containerStyle={styles.button}
+          containerStyle={[styles.button, styles.deleteButton]}
           textStyle={{color: COLORS.WHITE}}
         />
       </BottomSheetView>

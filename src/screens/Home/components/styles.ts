@@ -46,21 +46,21 @@ const styles = StyleSheet.create({
   bottomSheet: {
     justifyContent: "flex-start",
     alignItems: "center",
-    gap: 54,
+    gap: 20,
   },
   modalBody: {
     alignSelf: "center",
   },
   modalTitle: {
-    fontSize: 16,
-    lineHeight: 20,
+    fontSize: 24,
+    lineHeight: 28,
     textAlign: "center",
-    paddingBottom: 40,
+    paddingVertical: 20,
+    fontWeight: "bold",
   },
   question: {
     fontSize: 16,
     lineHeight: 20,
-    paddingHorizontal: 40,
     textAlign: "center",
   },
   info: {
@@ -73,6 +73,11 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     minWidth: 256,
     marginBottom: 20,
+  },
+  deleteButton: {
+    backgroundColor: COLORS.DANGER,
+    borderWidth: 0,
+    minWidth: 256,
   },
   input: {
     width: windowWidth - 32,

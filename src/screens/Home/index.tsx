@@ -46,7 +46,6 @@ const Home = observer(() => {
 
   const deleteNote = async () => {
     const activeId = toDosStore.activeToDoId;
-    console.log("selectedId", activeId);
     if (activeId) {
       await toDosStore.deleteToDo(activeId);
       DeleteDialogRef.current?.close();
